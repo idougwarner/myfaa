@@ -1,0 +1,129 @@
+service: myfaa
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  reservedConcurrency:
+    dev: 100
+    # prod: 1000
+    # @ToDo Increase the reserved concurrency up to 1000 when releasing the first version
+    prod: 100
+  deploy:
+    # Users can define these parameters in SSM (they will be looked up at deploy time)
+    # or in the deploy environment or inline
+    bucket_name: ${ssm:/myfaa/assets-bucket-name}
+    bucket_arn: ${ssm:/myfaa/assets-bucket-arn}
+  vpcConfig:
+    subnetIds:
+      # Users can define these parameters in SSM (they will be looked up at deploy time)
+      # or in the deploy environment or inline
+      - '${ssm:/myfaa/subnet-private-1~true}'
+      - '${ssm:/myfaa/subnet-private-2~true}'
+    securityGroupIds:
+      # Users can define this parameter in SSM (it will be looked up at deploy time)
+      # or in the deploy environment or inline
+      - '${ssm:/myfaa/lambda-security-group~true}'
+  domainName:
+    dev: beta.myfaa.com
+    prod: myfaa.com
+  customDomain:
+    domainName: ${self:custom.domainName.${self:custom.stage}}
+    stage: ${self:custom.stage}
+    basePath: ''
+    createRoute53Record: true
+    securityPolicy: tls_1_2
+    endpointType: edge
+  custom:
+    prune:
+      automatic: true
+      number: 5
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  deploymentBucket:
+    name: ${self:custom.deploy.bucket_name}
+    blockPublicAccess: true
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'logs:CreateLogGroup'
+        - 'logs:CreateLogStream'
+        - 'logs:PutLogEvents'
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - 'events:PutEvents'
+        - 'cloudwatch:PutMetricData'
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - 's3:*'
+      Resource:
+        # Users can define this parameter in SSM (it will be looked up at deploy time)
+        # or in the deploy environment or inline
+        - '${self:custom.deploy.bucket_arn}'
+        - '${self:custom.deploy.bucket_arn}/*'
+    - Effect: Allow
+      Action:
+        - codedeploy:*
+      Resource:
+        - '*'
+  environment:
+    NODE_ENV: production
+    ASSET_DOMAIN: https://s3.amazonaws.com/${self:custom.deploy.bucket_name}/${self:custom.stage}
+    ASSETS_DIR: ./build/client/assets
+    ASSETS_MAP_FILE: assets.json
+
+functions:
+  api:
+    handler: lambda.handler
+    vpc: ${self:custom.vpcConfig}
+    events:
+      - http: ANY /
+      - http: ANY {proxy+}
+    reservedConcurrency: ${self:custom.reservedConcurrency.${self:custom.stage}}
+    deploymentSettings:
+      type: Canary10Percent5Minutes
+      alias: Live
+      preTrafficHook: preflight
+      postTrafficHook: postflight
+    dependsOn:
+      - PreflightLambdaFunction
+      - PostflightLambdaFunction
+  preflight:
+    handler: build/server/lambda/codedeploy.preflight
+    vpc: ${self:custom.vpcConfig}
+    timeout: 600
+  postflight:
+    handler: build/server/lambda/codedeploy.postflight
+    vpc: ${self:custom.vpcConfig}
+    timeout: 600
+
+plugins:
+  - serverless-domain-manager
+  - serverless-plugin-canary-deployments
+  - serverless-api-compression
+  - serverless-prune-plugin
+  - serverless-jetpack
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - '*'
+    - '.github/**'
+    - '.vscode/**'
+    - 'client/**'
+    - 'dev-tools/**'
+    - 'docs/**'
+    - '__test__/**'
+    - '__mocks__/**'
+    - '**/node_modules/aws-sdk/**' # included on Lambda.
+    - 'server/**'
+    - 'static/**'
+    - 'webpack/**'
+    - '!package.json'
+    - '!lambda.js'
+    - '!knexfile.js'
+    - 'build/client/assets/**'
+    - '!build/client/assets/assets.json'

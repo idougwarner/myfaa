@@ -1,0 +1,18 @@
+# Database:
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_NAME=myfaa
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_MIN_POOL=2
+DB_MAX_POOL=10
+
+# Session
+SESSION_SECRET=
+
+# AWS:
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+
+# Apollo Studio:
+APOLLO_KEY=

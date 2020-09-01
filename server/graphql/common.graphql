@@ -1,0 +1,18 @@
+input PageCursor {
+  page: Int
+  size: Int
+}
+
+type PageInfo {
+  page: Int
+  size: Int
+  total: Int
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  EMPLOYEE
+}
+
+scalar NonEmptyString
