@@ -74,6 +74,7 @@ provider:
     ASSET_DOMAIN: https://s3.amazonaws.com/${self:custom.deploy.bucket_name}/${self:custom.stage}
     ASSETS_DIR: ./build/client/assets
     ASSETS_MAP_FILE: assets.json
+    PASSPORT_STRATEGY: local
 
 functions:
   api:
