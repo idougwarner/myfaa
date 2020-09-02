@@ -91,6 +91,9 @@ export default async function renderIndex() {
 
       <body>
         <div id="q-app" />
+        <script>
+          window.ASSET_DOMAIN="${ASSET_DOMAIN}"
+        </script>
         ${vendorScripts}
         <script src="${bundleURLs.js}" crossorigin="anonymous"></script>
       </body>
