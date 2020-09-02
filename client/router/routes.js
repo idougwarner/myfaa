@@ -1,3 +1,5 @@
+import Home from '@client/pages/home';
+
 const routes = [
   {
     path: '/',
@@ -6,7 +8,7 @@ const routes = [
       {
         name: 'home',
         path: '',
-        component: () => import('@client/pages/home')
+        component: Home
       },
       {
         name: 'modules',
