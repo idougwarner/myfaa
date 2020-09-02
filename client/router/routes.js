@@ -1,8 +1,8 @@
 const routes = [
   {
     path: '/',
-    name: 'HelloWorld',
-    component: () => import('@client/components/HelloWorld')
+    name: 'Home',
+    component: () => import('@client/components/Home')
   }
 ];
 
