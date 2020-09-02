@@ -43,11 +43,11 @@
     "aws-serverless-express": "^3.3.8",
     "body-parser": "^1.19.0",
     "cookie-session": "^1.4.0",
-    "csv-parse": "^4.12.0",
     "dataloader": "^2.0.0",
     "date-fns": "^2.16.0",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
+    "es6-promise": "^4.2.8",
     "express": "^4.17.1",
     "faker": "^5.0.0",
     "flat": "^5.0.2",
@@ -66,7 +66,8 @@
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.0"
+    "vue-router": "^3.4.0",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
