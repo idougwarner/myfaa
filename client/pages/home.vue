@@ -21,11 +21,7 @@
           </div>
         </div>
       </div>
-      <q-img
-        src="../assets/images/jet.png"
-        spinner-color="white"
-        style="max-width: 450px;"
-      />
+      <img src="../assets/images/jet.png" style="max-width: 450px;" />
     </div>
     <div class="row justify-center q-py-xl">
       <div class="col-6">
@@ -42,9 +38,8 @@
       style="height: 400px;"
     >
       <div class="row items-center justify-evenly">
-        <q-img
+        <img
           src="../assets/images/dashboard.png"
-          spinner-color="white"
           style="max-width: 450px;"
           class="col-6"
         />
@@ -64,9 +59,8 @@
       style="height: 400px;"
     >
       <div class="row items-center justify-evenly">
-        <q-img
+        <img
           src="../assets/images/faa-demonstrate.png"
-          spinner-color="white"
           style="max-width: 450px;"
           class="col-6"
         />
