@@ -84,6 +84,7 @@ export default async function renderIndex() {
         <meta name="msapplication-TileImage" content="${ASSET_DOMAIN}icons/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         <title>My FAA</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.13/dist/quasar.min.css" rel="stylesheet" type="text/css">
         <link href="${bundleURLs.css}" rel="stylesheet" type="text/css">
       </head>
