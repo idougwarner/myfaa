@@ -1,6 +1,5 @@
 <template>
   <div id="q-app">
-    <img src="./assets/logo.png" />
     <router-view />
   </div>
 </template>

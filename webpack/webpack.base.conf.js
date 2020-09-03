@@ -62,7 +62,8 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]'),
-          esModule: false
+          esModule: false,
+          limit: undefined
         }
       },
       {
@@ -80,7 +81,8 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
-          esModule: false
+          esModule: false,
+          limit: undefined
         }
       }
     ]
