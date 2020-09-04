@@ -9,14 +9,6 @@ export default {
     zipcode: { type: 'string' },
     employeeCount: { type: 'integer' }
   },
-  required: [
-    'id',
-    'name',
-    'street',
-    'city',
-    'state',
-    'zipcode',
-    'employeeCount'
-  ],
+  required: ['name', 'street', 'city', 'state', 'zipcode', 'employeeCount'],
   additionalProperties: false
 };
