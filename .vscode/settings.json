@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "vetur.validation.template": false,
   "vetur.format.enable": false,
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "eslint.validate": ["javascript", "javascriptreact", "vue"],
 
   "vetur.experimental.templateInterpolationService": true,
   "files.watcherExclude": {
@@ -10,5 +10,11 @@
     "**/.git/subtree-cache/**": true,
     "**/node_modules/**": true,
     "**/.hg/store/**": true
+  },
+  "vetur.grammar.customBlocks": {
+    "docs": "md",
+    "i18n": "json",
+    "page-query": "graphql",
+    "static-query": "graphql"
   }
 }

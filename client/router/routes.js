@@ -14,11 +14,6 @@ const routes = [
         component: () => import('@client/pages/modules')
       },
       {
-        name: 'order',
-        path: 'order',
-        component: () => import('@client/pages/order')
-      },
-      {
         name: 'aboutus',
         path: 'aboutus',
         component: () => import('@client/pages/about-us')

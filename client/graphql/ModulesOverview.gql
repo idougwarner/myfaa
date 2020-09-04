@@ -1,0 +1,10 @@
+query {
+  modulesOverview {
+    id
+    name
+    description
+    logoUrl
+    price
+    coursesCount
+  }
+}

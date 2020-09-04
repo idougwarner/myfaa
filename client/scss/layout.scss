@@ -1,0 +1,23 @@
+@media (min-width: $breakpoint-xs-max) {
+  .myfaa-page-content {
+    padding-top: $header-height;
+    width: $breakpoint-xs-max;
+    margin: auto;
+  }
+}
+
+@media (min-width: $breakpoint-sm-max) {
+  .myfaa-page-content {
+    padding-top: $header-height;
+    width: 970px;
+    margin: auto;
+  }
+}
+
+@media (min-width: $breakpoint-md-max) {
+  .myfaa-page-content {
+    padding-top: $header-height;
+    width: 1170px;
+    margin: auto;
+  }
+}

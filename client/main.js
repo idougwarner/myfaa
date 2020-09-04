@@ -4,6 +4,8 @@ import App from './App';
 import store from './store';
 import router from './router';
 import boot from './boot';
+import './scss/index.scss';
+import apolloProvider from './apollo-provider';
 
 window.Vue = Vue;
 require('./assets/quasar.umd.min.js');
@@ -15,6 +17,7 @@ const app = new Vue({
   el: '#q-app',
   store,
   router,
+  apolloProvider,
   components: { App },
   template: '<App/>'
 });
