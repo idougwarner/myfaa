@@ -20,7 +20,7 @@ export const directiveResolvers = {
   hasRole: (next, source, { role: requiredRoleName }, ctx) => {
     const user = isLoggedIn(ctx);
 
-    if (isEqualOrHigherRole(user.role.name, requiredRoleName)) {
+    if (isEqualOrHigherRole(user.roleName, requiredRoleName)) {
       return next();
     }
 
