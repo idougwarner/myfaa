@@ -30,7 +30,9 @@ export function queryBuilder(tableName, opts) {
 
 export const Table = {
   USER: camelCaseString('users'),
-  COMPANY: camelCaseString('companies')
+  COMPANY: camelCaseString('companies'),
+  MODULE: camelCaseString('modules'),
+  COURSE: camelCaseString('courses')
 };
 
 export const knex = _knex;
