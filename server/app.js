@@ -19,6 +19,7 @@ const DEBUG = config.NODE_ENV !== 'production';
 const app = express();
 
 if (!DEBUG) {
+  app.set('trust proxy', 1);
   app.use(awsServerlessExpressMiddleware.eventContext());
 }
 
@@ -55,6 +56,7 @@ const loginCallbacks = passportSetup[
 ](app);
 
 if (loginCallbacks) {
+  app.get('/login-callback', ...loginCallbacks.loginCallback);
   app.post('/login-callback', ...loginCallbacks.loginCallback);
 }
 

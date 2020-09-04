@@ -3,6 +3,9 @@ service: myfaa
 custom:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
+  baseUrl:
+    dev: https://beta.myfaa.com
+    prod: https://myfaa.com
   reservedConcurrency:
     dev: 100
     # prod: 1000
@@ -71,10 +74,14 @@ provider:
         - '*'
   environment:
     NODE_ENV: production
+    BASE_URL: ${self:custom.baseUrl.${self:custom.stage}}
     ASSET_DOMAIN: https://s3.amazonaws.com/${self:custom.deploy.bucket_name}/${self:custom.stage}
     ASSETS_DIR: ./build/client/assets
     ASSETS_MAP_FILE: assets.json
-    PASSPORT_STRATEGY: local
+    PASSPORT_STRATEGY: auth0
+    AUTH0_CLIENT_ID: ${ssm:/myfaa/auth0-client-id~true}
+    AUTH0_CLIENT_SECRET: ${ssm:/myfaa/auth0-client-secret~true}
+    AUTH0_DOMAIN: ${ssm:/myfaa/auth0-domain}
 
 functions:
   api:
