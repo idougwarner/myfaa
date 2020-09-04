@@ -84,6 +84,11 @@ module.exports = {
           esModule: false,
           limit: undefined
         }
+      },
+      {
+        test: /\.(gql|graphql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
       }
     ]
   },
