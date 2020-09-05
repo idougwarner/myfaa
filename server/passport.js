@@ -5,6 +5,8 @@ import capitalizeString from 'lodash/capitalize';
 import wrap from '@server/lib/wrap';
 import { User } from '@server/models';
 import localAuthHelpers from '@server/passport-local';
+import { onboardingService } from '@server/services';
+import { ONBOARDING_STEPS } from '@server/constants';
 
 export function setupAuth0Passport() {
   const strategy = new Auth0Strategy(
@@ -32,7 +34,9 @@ export function setupAuth0Passport() {
   passport.deserializeUser(
     wrap(async (id, done) => {
       // add new cacheable query
-      const user = await User.query().findOne({ auth0Id: id });
+      const user = await User.query()
+        .findOne({ auth0Id: id })
+        .withGraphFetched('onboardingStatus');
       done(null, user || false);
     })
   );
@@ -46,8 +50,9 @@ export function setupAuth0Passport() {
         if (!auth0Id) {
           throw new Error('Null user in login callback');
         }
-        const existingUser = await User.query().findOne({ auth0Id });
 
+        let redirectUrl = req.query.state || '/';
+        const existingUser = await User.query().findOne({ auth0Id });
         if (!existingUser) {
           const userMetadata =
             // eslint-disable-next-line no-underscore-dangle
@@ -56,20 +61,25 @@ export function setupAuth0Passport() {
             req.user._json.user_metadata ||
             {};
 
-          const userData = {
+          const userDataGraph = {
             auth0Id,
             // eslint-disable-next-line no-underscore-dangle
             email: req.user._json.email,
             firstName: capitalizeString(userMetadata.firstName) || '',
             lastName: capitalizeString(userMetadata.lastName) || '',
             phoneNumber: userMetadata.phoneNumber || '',
-            roleName: userMetadata.roleName
+            roleName: userMetadata.roleName,
+            onboardingStatus: {
+              completed: false,
+              currentStep: ONBOARDING_STEPS.CREATE_ACCOUNT
+            }
           };
 
-          await User.query().insert(userData);
+          const user = await User.query().insertGraphAndFetch(userDataGraph);
+          redirectUrl = onboardingService.getNextStepUrl(user);
         }
 
-        res.redirect(req.query.state || '/');
+        res.redirect(redirectUrl || '/');
       })
     ]
   };

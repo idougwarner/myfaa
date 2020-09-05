@@ -22,6 +22,14 @@ class User extends BaseModel {
           from: `${Table.USER}.companyId`,
           to: `${Table.COMPANY}.id`
         }
+      },
+      onboardingStatus: {
+        relation: Model.HasOneRelation,
+        modelClass: path.join(__dirname, 'onboarding-status'),
+        join: {
+          from: `${Table.USER}.id`,
+          to: `${Table.ONBOARDING_STATUS}.userId`
+        }
       }
     };
   }

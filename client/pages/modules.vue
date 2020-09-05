@@ -23,7 +23,12 @@
           </q-card-section>
           <q-card-actions>
             <q-btn flat color="primary" label="See courses" />
-            <q-btn flat color="dark" label="Buy Now" @click="handleBuyNow" />
+            <q-btn
+              flat
+              color="dark"
+              label="Buy Now"
+              @click="handleBuyNow(module)"
+            />
           </q-card-actions>
         </q-card>
       </div>

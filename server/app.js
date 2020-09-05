@@ -6,6 +6,7 @@ import passport from 'passport';
 import { ApolloServer } from 'apollo-server-express';
 
 import renderIndex from '@server/middleware/render-index';
+import userOnboardingStatusMiddleware from '@server/middleware/user-onboarding-status';
 import passportSetup from '@server/passport';
 import { createLoaders } from '@server/data-loaders';
 import { schema } from '@server/graphql';
@@ -75,6 +76,8 @@ const server = new ApolloServer({
     reportSchema: true
   }
 });
+
+app.use(userOnboardingStatusMiddleware);
 
 server.applyMiddleware({
   app,

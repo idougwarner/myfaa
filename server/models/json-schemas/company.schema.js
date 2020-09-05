@@ -7,8 +7,9 @@ export default {
     city: { type: 'string' },
     state: { type: 'string' },
     zipcode: { type: 'string' },
-    employeeCount: { type: 'integer' }
+    country: { type: 'string' },
+    maxEmployeeCount: { type: 'integer' }
   },
-  required: ['name', 'street', 'city', 'state', 'zipcode', 'employeeCount'],
+  required: ['name', 'street', 'city', 'state', 'zipcode'],
   additionalProperties: false
 };

@@ -12,10 +12,14 @@ export const login = (nextUrl, options) => {
         scope: 'openid profile email'
       }
     },
+    theme: {
+      logo: '',
+      primaryColor: '#37a000'
+    },
     allowedConnections: ['Username-Password-Authentication'],
     rememberLastLogin: true,
     languageDictionary: {
-      title: 'Welcome to MyFAA'
+      signUpTitle: 'Admin Registration'
     },
     allowLogin: options.allowLogin,
     allowSignUp: options.allowSignUp,
@@ -32,7 +36,7 @@ export const login = (nextUrl, options) => {
       },
       {
         name: 'phoneNumber',
-        placeholder: 'Cell Phone',
+        placeholder: 'Phone Number',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png',
         validator: (cell) => ({
           valid: cell.length >= 10,
@@ -40,7 +44,8 @@ export const login = (nextUrl, options) => {
         })
       }
     ],
-    defaultADUsernameFromEmailPrefix: false
+    defaultADUsernameFromEmailPrefix: false,
+    showTerms: false
   };
 
   if (options.prefill) {
