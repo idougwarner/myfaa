@@ -100,11 +100,11 @@ functions:
       - PreflightLambdaFunction
       - PostflightLambdaFunction
   preflight:
-    handler: build/server/lambda/codedeploy.preflight
+    handler: build/server/third-party/aws/lambda/codedeploy.preflight
     vpc: ${self:custom.vpcConfig}
     timeout: 600
   postflight:
-    handler: build/server/lambda/codedeploy.postflight
+    handler: build/server/third-party/aws/lambda/codedeploy.postflight
     vpc: ${self:custom.vpcConfig}
     timeout: 600
 
