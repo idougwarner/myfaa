@@ -1,3 +1,4 @@
+import CurrentUser from './CurrentUser.gql';
 import CouponByCode from './CouponByCode.gql';
 import CreateBuyModuleIntent from './CreateBuyModuleIntent.gql';
 import CreateCompany from './CreateCompany.gql';
@@ -7,6 +8,7 @@ import OnboardingModule from './OnboardingModule.gql';
 
 export default {
   queries: {
+    currentUser: CurrentUser,
     couponByCode: CouponByCode,
     modulesOverview: ModulesOverview,
     onboardingModule: OnboardingModule

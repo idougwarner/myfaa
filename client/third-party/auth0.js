@@ -19,6 +19,7 @@ export const login = (nextUrl, options) => {
     allowedConnections: ['Username-Password-Authentication'],
     rememberLastLogin: true,
     languageDictionary: {
+      title: 'Welcome to MyFAA',
       signUpTitle: 'Admin Registration'
     },
     allowLogin: options.allowLogin,
