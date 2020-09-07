@@ -111,11 +111,10 @@ export default {
       const { name, street, city, state, zipcode, country } = this;
       const campanyInput = { name, street, city, state, zipcode, country };
       try {
-        const response = await this.$apollo.mutate({
+        await this.$apollo.mutate({
           mutation: CREATE_COMPANY,
           variables: { input: campanyInput }
         });
-        console.log('response', response);
         this.$router.push({ name: ONBOARDING_STEPS.BUY_MODULE });
       } catch (error) {
         console.log('setup company error', error);

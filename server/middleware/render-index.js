@@ -96,6 +96,7 @@ export default async function renderIndex() {
           window.BASE_URL="${process.env.BASE_URL || ''}"
           window.AUTH0_CLIENT_ID="${process.env.AUTH0_CLIENT_ID}"
           window.AUTH0_DOMAIN="${process.env.AUTH0_DOMAIN}"
+          window.STRIPE_PUBLISHABLE_KEY="${process.env.STRIPE_PUBLISHABLE_KEY}"
         </script>
         ${vendorScripts}
         <script src="${bundleURLs.js}" crossorigin="anonymous"></script>

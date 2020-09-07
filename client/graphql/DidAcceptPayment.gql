@@ -1,0 +1,3 @@
+mutation didAcceptPayment($paymentIntentId: String!) {
+  didAcceptPayment(paymentIntentId: $paymentIntentId)
+}

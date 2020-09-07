@@ -70,8 +70,8 @@ export function setupAuth0Passport() {
             phoneNumber: userMetadata.phoneNumber || '',
             roleName: userMetadata.roleName,
             onboardingStatus: {
-              completed: false,
-              currentStep: ONBOARDING_STEPS.CREATE_ACCOUNT
+              currentStep: ONBOARDING_STEPS.CREATE_ACCOUNT,
+              completed: true
             }
           };
 
