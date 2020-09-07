@@ -5,7 +5,10 @@ export const addModules = async (companyId, moduleId, moduleCount) => {
   const companyModule = await queryBuilder.where('moduleId', moduleId).first();
 
   if (!companyModule) {
-    await queryBuilder.insert({ moduleId, moduleCount });
+    queryBuilder.relate({
+      id: moduleId,
+      moduleCount
+    });
   } else {
     await queryBuilder
       .patch({

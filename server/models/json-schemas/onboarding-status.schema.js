@@ -3,7 +3,8 @@ export default {
   properties: {
     id: { type: 'integer' },
     userId: { type: 'integer' },
-    lastStep: { type: 'string' }
+    lastStep: { type: 'string' },
+    moduleId: { type: 'integer' }
   },
   required: ['userId'],
   additionalProperties: false

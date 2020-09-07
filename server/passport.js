@@ -66,7 +66,7 @@ export function setupAuth0Passport() {
           };
 
           if (userMetadata.moduleId) {
-            onboardingStatus.moduleId = userMetadata.moduleId;
+            onboardingStatus.moduleId = parseInt(userMetadata.moduleId, 10);
           }
 
           const userDataGraph = {
