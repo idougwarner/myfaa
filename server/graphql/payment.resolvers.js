@@ -1,18 +1,16 @@
-import { stripe } from '@server/third-party';
 import { paymentService } from '@server/services';
 
 export default {
   Mutation: {
-    createPaymentIntent: async () => {
-      const paymentIntent = await stripe.instance.paymentIntents.create({
-        amount: 1099,
-        currency: 'usd',
-        metadata: { integration_check: 'accept_a_payment' }
-      });
-
-      return paymentIntent.client_secret;
+    createBuyModuleIntent: async (_, { moduleId, moduleCount, couponId }) => {
+      const intent = await paymentService.createBuyModuleIntent(
+        moduleId,
+        moduleCount,
+        couponId
+      );
+      return intent.client_secret;
     },
-    didAcceptPayment: async (_, { paymentIntentId }, { user }) =>
-      paymentService.handleAcceptedPayment(user, paymentIntentId)
+    didConfirmBuyModuleIntent: async (_, { paymentIntentId }, { user }) =>
+      paymentService.didConfirmBuyModuleIntent(user, paymentIntentId)
   }
 };

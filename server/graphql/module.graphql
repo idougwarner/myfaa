@@ -9,4 +9,5 @@ type Module {
 
 type Query {
   modulesOverview: [Module!]!
+  onboardingModule: Module
 }

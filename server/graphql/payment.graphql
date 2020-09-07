@@ -1,4 +1,4 @@
 type Mutation {
-  createPaymentIntent: String!
-  didAcceptPayment(paymentIntentId: String!): Void
+  createBuyModuleIntent(moduleId: ID!, moduleCount: Int!, couponId: ID!): String!
+  didConfirmBuyModuleIntent(paymentIntentId: String!): Void
 }

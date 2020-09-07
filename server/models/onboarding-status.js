@@ -22,6 +22,14 @@ class OnboardingStatus extends BaseModel {
           from: `${Table.ONBOARDING_STATUS}.userId`,
           to: `${Table.USER}.id`
         }
+      },
+      selectedModuleToBuy: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: path.join(__dirname, 'module'),
+        join: {
+          from: `${Table.ONBOARDING_STATUS}.moduleId`,
+          to: `${Table.MODULE}.id`
+        }
       }
     };
   }

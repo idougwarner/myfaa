@@ -61,6 +61,14 @@ export function setupAuth0Passport() {
             req.user._json.user_metadata ||
             {};
 
+          const onboardingStatus = {
+            lastStep: ONBOARDING_STEPS.CREATE_ACCOUNT
+          };
+
+          if (userMetadata.moduleId) {
+            onboardingStatus.moduleId = userMetadata.moduleId;
+          }
+
           const userDataGraph = {
             auth0Id,
             // eslint-disable-next-line no-underscore-dangle
@@ -69,10 +77,7 @@ export function setupAuth0Passport() {
             lastName: capitalizeString(userMetadata.lastName) || '',
             phoneNumber: userMetadata.phoneNumber || '',
             roleName: userMetadata.roleName,
-            onboardingStatus: {
-              currentStep: ONBOARDING_STEPS.CREATE_ACCOUNT,
-              completed: true
-            }
+            onboardingStatus
           };
 
           const user = await User.query().insertGraphAndFetch(userDataGraph);

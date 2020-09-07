@@ -33,7 +33,10 @@ export const Table = {
   COMPANY: camelCaseString('companies'),
   MODULE: camelCaseString('modules'),
   COURSE: camelCaseString('courses'),
-  ONBOARDING_STATUS: camelCaseString('onboarding_statuses')
+  ONBOARDING_STATUS: camelCaseString('onboarding_statuses'),
+  COUPON: camelCaseString('coupons'),
+  COMPANY_MODULE: camelCaseString('company_modules'),
+  TRANSACTION: camelCaseString('transactions')
 };
 
 export const knex = _knex;

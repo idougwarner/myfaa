@@ -22,6 +22,14 @@ class Module extends BaseModel {
           from: `${Table.MODULE}.id`,
           to: `${Table.COURSE}.moduleId`
         }
+      },
+      transactions: {
+        relation: Model.HasManyRelation,
+        model: path.join(__dirname, 'transaction'),
+        join: {
+          from: `${Table.MODULE}.id`,
+          to: `${Table.TRANSACTION}.moduleId`
+        }
       }
     };
   }

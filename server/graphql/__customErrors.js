@@ -7,14 +7,8 @@ export class InsufficientPermissionError extends ApolloError {
   }
 }
 
-export class PaymentIntentNotFound extends ApolloError {
+export class NotFoundError extends ApolloError {
   constructor(message) {
-    super(message, 'PAYMENT_INTENT_NOT_FOUND');
-  }
-}
-
-export class PaymentIntentNotCharged extends ApolloError {
-  constructor(message) {
-    super(message, 'PAYMENT_INTENT_NOT_CHARGED');
+    super(message, 'NOT_FOUND_ERROR');
   }
 }

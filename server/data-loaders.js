@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { User } from '@server/models';
+import { User, Module } from '@server/models';
 
 function createLoader(model, opts) {
   const idKey = (opts && opts.idKey) || 'id';
@@ -13,5 +13,6 @@ function createLoader(model, opts) {
 }
 
 export const createLoaders = () => ({
-  user: createLoader(User)
+  user: createLoader(User),
+  module: createLoader(Module)
 });

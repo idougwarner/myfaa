@@ -3,8 +3,7 @@ export default {
   properties: {
     id: { type: 'integer' },
     userId: { type: 'integer' },
-    completed: { type: 'boolean' },
-    currentStep: { type: 'string' }
+    lastStep: { type: 'string' }
   },
   required: ['userId'],
   additionalProperties: false

@@ -2,16 +2,16 @@ import { User } from '@server/models';
 import { ROLE_NAMES, ONBOARDING_STEPS } from '@server/constants';
 
 export const getNextStepUrl = (user) => {
-  const { completed, currentStep } = user.onboardingStatus;
+  const { lastStep } = user.onboardingStatus;
 
-  if (currentStep === ONBOARDING_STEPS.BUY_MODULE && completed) return null;
+  if (lastStep === ONBOARDING_STEPS.BUY_MODULE) return null;
 
   if (user.roleName === ROLE_NAMES.ADMIN) {
-    if (currentStep === ONBOARDING_STEPS.CREATE_ACCOUNT && completed) {
+    if (lastStep === ONBOARDING_STEPS.CREATE_ACCOUNT) {
       return `/${ONBOARDING_STEPS.SETUP_COMPANY}`;
     }
 
-    if (currentStep === ONBOARDING_STEPS.SETUP_COMPANY && completed) {
+    if (lastStep === ONBOARDING_STEPS.SETUP_COMPANY) {
       return `/${ONBOARDING_STEPS.BUY_MODULE}`;
     }
   }
@@ -29,5 +29,11 @@ export const createCompany = async (
 
   await User.relatedQuery('onboardingStatus')
     .for(adminUser.id)
-    .patch({ currentStep: ONBOARDING_STEPS.SETUP_COMPANY, completed: true });
+    .patch({ lastStep: ONBOARDING_STEPS.SETUP_COMPANY });
+};
+
+export const completeOnboarding = async (userId) => {
+  await User.relatedQuery('onboardingStatus').for(userId).patch({
+    lastStep: ONBOARDING_STEPS.BUY_MODULE
+  });
 };

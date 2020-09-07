@@ -67,11 +67,16 @@ export default {
     }
   },
   methods: {
-    handleBuyNow() {
+    handleBuyNow(module) {
       auth0.login('/', {
         allowLogin: false,
         allowSignUp: true,
         additionalSignUpFields: [
+          {
+            type: 'hidden',
+            name: 'moduleId',
+            value: module.id
+          },
           {
             type: 'hidden',
             name: 'roleName',

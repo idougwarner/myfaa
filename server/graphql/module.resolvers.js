@@ -8,6 +8,14 @@ export default {
     }
   },
   Query: {
-    modulesOverview: () => Module.query()
+    modulesOverview: () => Module.query(),
+    onboardingModule: (parent, args, { user, loaders }) => {
+      const { moduleId } = user.onboardingStatus;
+      if (moduleId) {
+        return loaders.module.load(moduleId);
+      }
+
+      return null;
+    }
   }
 };

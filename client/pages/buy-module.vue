@@ -1,7 +1,8 @@
 <template>
   <div class="window-height myfaa-page-content">
+    {{ onboardingModule ? onboardingModule.name : '' }}
     <stripe-card
-      :create-intent-secret="handleCreatePaymentIntentSecret"
+      :create-intent-secret="handleCreateBuyModuleIntentSecret"
       @on-error="handleError"
       @on-success="handleSuccess"
     />
@@ -10,25 +11,34 @@
 
 <script>
 import StripeCard from '@client/components/stripe-card';
-import CREATE_PAYMENT_INTENT from '@client/graphql/CreatePaymentIntent.gql';
-import DID_ACCEPT_PAYMENT from '@client/graphql/DidAcceptPayment.gql';
+import ONBOARDING_MODULE from '@client/graphql/OnboardingModule.gql';
+import CREATE_BUY_MODULE_INTENT from '@client/graphql/CreateBuyModuleIntent.gql';
+import DID_CONFIRM_BUY_MODULE_INTENT from '@client/graphql/DidConfirmBuyModuleIntent.gql';
 
 export default {
   name: 'BuyModule',
   components: {
     StripeCard
   },
+  data() {
+    return {
+      onboardingModule: null
+    };
+  },
+  apollo: {
+    onboardingModule: ONBOARDING_MODULE
+  },
   methods: {
-    async handleCreatePaymentIntentSecret() {
+    async handleCreateBuyModuleIntentSecret() {
       const response = await this.$apollo.mutate({
-        mutation: CREATE_PAYMENT_INTENT
+        mutation: CREATE_BUY_MODULE_INTENT
       });
-      return response.data.createPaymentIntent;
+      return response.data.createBuyModuleIntent;
     },
     async handleSuccess(paymentIntentId) {
       try {
         await this.$apollo.mutate({
-          mutation: DID_ACCEPT_PAYMENT,
+          mutation: DID_CONFIRM_BUY_MODULE_INTENT,
           variables: { paymentIntentId }
         });
         this.$router.push({ name: 'home' });
