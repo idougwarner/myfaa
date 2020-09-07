@@ -1,6 +1,14 @@
 <template>
   <div class="window-height myfaa-page-content">
     {{ onboardingModule ? onboardingModule.name : '' }}
+    <q-input
+      outlined
+      dense
+      v-model="couponCode"
+      @input="handleChangeCoupon"
+      debounce="250"
+    />
+    <q-input outlined dense v-model.number="moduleCount" type="number" />
     <stripe-card
       :create-intent-secret="handleCreateBuyModuleIntentSecret"
       @on-error="handleError"
@@ -11,9 +19,7 @@
 
 <script>
 import StripeCard from '@client/components/stripe-card';
-import ONBOARDING_MODULE from '@client/graphql/OnboardingModule.gql';
-import CREATE_BUY_MODULE_INTENT from '@client/graphql/CreateBuyModuleIntent.gql';
-import DID_CONFIRM_BUY_MODULE_INTENT from '@client/graphql/DidConfirmBuyModuleIntent.gql';
+import graphql from '@client/graphql';
 
 export default {
   name: 'BuyModule',
@@ -22,28 +28,48 @@ export default {
   },
   data() {
     return {
-      onboardingModule: null
+      onboardingModule: null,
+      couponCode: null,
+      coupon: null,
+      moduleCount: 1
     };
   },
   apollo: {
-    onboardingModule: ONBOARDING_MODULE
+    onboardingModule: graphql.queries.onboardingModule,
+    coupon: {
+      query: graphql.queries.couponByCode,
+      variables() {
+        return {
+          code: this.couponCode
+        };
+      },
+      skip() {
+        return !this.couponCode;
+      }
+    }
   },
   methods: {
+    handleChangeCoupon() {},
     async handleCreateBuyModuleIntentSecret() {
       const response = await this.$apollo.mutate({
-        mutation: CREATE_BUY_MODULE_INTENT
+        mutation: graphql.mutations.createBuyModuleIntent,
+        variables: {
+          moduleId: this.onboardingModule.id,
+          moduleCount: this.moduleCount,
+          couponId: this.coupon ? this.coupon.id : ''
+        }
       });
       return response.data.createBuyModuleIntent;
     },
     async handleSuccess(paymentIntentId) {
       try {
         await this.$apollo.mutate({
-          mutation: DID_CONFIRM_BUY_MODULE_INTENT,
+          mutation: graphql.mutations.didConfirmBuyModuleIntent,
           variables: { paymentIntentId }
         });
         this.$router.push({ name: 'home' });
       } catch (error) {
-        console.log('error', error.message);
+        this.notifyNegative(error.message);
       }
     },
     handleError(errorMessage) {

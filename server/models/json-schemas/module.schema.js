@@ -7,6 +7,5 @@ export default {
     logoUrl: { type: 'string' },
     price: { type: 'integer' }
   },
-  required: ['name', 'description', 'logoUrl', 'price'],
-  additionalProperties: false
+  required: ['name', 'description', 'logoUrl', 'price']
 };

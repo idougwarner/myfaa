@@ -48,7 +48,7 @@
 import chunk from 'lodash/chunk';
 import { auth0 } from '@client/third-party';
 import { ROLE_NAMES } from '@server/constants';
-import MODULES_OVERVIEW from '@client/graphql/ModulesOverview.gql';
+import graphql from '@client/graphql';
 
 export default {
   name: 'LearningModules',
@@ -59,7 +59,7 @@ export default {
     };
   },
   apollo: {
-    modulesOverview: MODULES_OVERVIEW
+    modulesOverview: graphql.queries.modulesOverview
   },
   computed: {
     chunkedModules() {

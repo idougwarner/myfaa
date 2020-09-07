@@ -1,0 +1,8 @@
+query CouponByCode($code: String!) {
+  coupon: couponByCode(code: $code) {
+    id
+    code
+    discountPercent
+    discountAmount
+  }
+}

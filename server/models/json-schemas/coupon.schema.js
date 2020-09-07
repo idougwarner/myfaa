@@ -3,9 +3,10 @@ export default {
   properties: {
     id: { type: 'integer' },
     name: { type: 'string' },
+    code: { type: 'string' },
     discountPercent: { type: 'integer' },
     discountAmount: { type: 'integer' }
   },
-  required: ['name'],
+  required: ['name', 'code'],
   additionalProperties: false
 };

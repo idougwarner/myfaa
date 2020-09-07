@@ -1,10 +1,10 @@
 type Coupon {
   id: ID!
-  name: String!
+  code: String!
   discountPercent: Int
   discountAmount: Int
 }
 
 type Query {
-  coupon(name: String!): Coupon @hasRole(role: ADMIN)
+  couponByCode(code: String!): Coupon @hasRole(role: ADMIN)
 }

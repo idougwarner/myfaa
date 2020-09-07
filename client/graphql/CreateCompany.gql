@@ -1,3 +1,3 @@
-mutation createCompany($input: CreateCompanyInput) {
+mutation CreateCompany($input: CreateCompanyInput) {
   createCompany(input: $input)
 }

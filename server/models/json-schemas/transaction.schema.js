@@ -6,8 +6,15 @@ export default {
     moduleId: { type: 'integer' },
     moduleCount: { type: 'integer' },
     couponId: { type: ['integer', 'null'] },
-    amount: { type: 'integer' }
+    amount: { type: 'integer' },
+    paymentIntentId: { type: 'string' }
   },
-  required: ['companyId', 'moduleId', 'moduleCount', 'amount'],
+  required: [
+    'companyId',
+    'moduleId',
+    'moduleCount',
+    'amount',
+    'paymentIntentId'
+  ],
   additionalProperties: false
 };

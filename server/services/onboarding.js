@@ -3,7 +3,6 @@ import { ROLE_NAMES, ONBOARDING_STEPS } from '@server/constants';
 
 export const getNextStepUrl = (user) => {
   const { lastStep } = user.onboardingStatus;
-
   if (lastStep === ONBOARDING_STEPS.BUY_MODULE) return null;
 
   if (user.roleName === ROLE_NAMES.ADMIN) {

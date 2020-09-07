@@ -79,7 +79,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import delayTouch from '@client/utils/delayTouch';
-import CREATE_COMPANY from '@client/graphql/CreateCompany.gql';
+import graphql from '@client/graphql';
 import ONBOARDING_STEPS from '@server/constants/onboarding-steps';
 
 export default {
@@ -112,7 +112,7 @@ export default {
       const campanyInput = { name, street, city, state, zipcode, country };
       try {
         await this.$apollo.mutate({
-          mutation: CREATE_COMPANY,
+          mutation: graphql.mutations.createCompany,
           variables: { input: campanyInput }
         });
         this.$router.push({ name: ONBOARDING_STEPS.BUY_MODULE });
