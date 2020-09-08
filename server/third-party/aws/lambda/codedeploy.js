@@ -24,7 +24,7 @@ function makeCodeDeployHandler(name, handlerFn) {
   };
 }
 
-module.exports.preflight = makeCodeDeployHandler('preflight', () => {
-  db.knex.migrate.latest();
-});
+module.exports.preflight = makeCodeDeployHandler('preflight', () =>
+  db.knex.migrate.latest()
+);
 module.exports.postflight = makeCodeDeployHandler('postflight', () => {});
