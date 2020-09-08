@@ -75,17 +75,31 @@ provider:
   environment:
     NODE_ENV: production
     BASE_URL: ${self:custom.baseUrl.${self:custom.stage}}
+    # Bundle
     ASSET_DOMAIN: https://s3.amazonaws.com/${self:custom.deploy.bucket_name}/${self:custom.stage}
     ASSETS_DIR: ./build/client/assets
     ASSETS_MAP_FILE: assets.json
-    PASSPORT_STRATEGY: auth0
-    AUTH0_CLIENT_ID: ${ssm:/myfaa/auth0-client-id~true}
-    AUTH0_CLIENT_SECRET: ${ssm:/myfaa/auth0-client-secret~true}
-    AUTH0_DOMAIN: ${ssm:/myfaa/auth0-domain}
-    # Stripe
-    STRIPE_PUBLISHABLE_KEY: ${ssm:/myfaa/stripe-publishable-key}
-    STRIPE_SECRET_KEY: ${ssm:/myfaa/stripe-secret-key~true}
 
+    # PostgreSql
+    DB_HOST: ${ssm:/myfaa-${self:custom.stage}/db-host~true}
+    DB_PORT: 5432
+    DB_NAME: ${ssm:/myfaa-${self:custom.stage}/db-name~true}
+    DB_USER: ${ssm:/myfaa-${self:custom.stage}/db-user~true}
+    DB_PASSWORD: ${ssm:/myfaa-${self:custom.stage}/db-password~true}
+
+    # Auth0
+    PASSPORT_STRATEGY: auth0
+    AUTH0_CLIENT_ID: ${ssm:/myfaa-${self:custom.stage}/auth0-client-id~true}
+    AUTH0_CLIENT_SECRET: ${ssm:/myfaa-${self:custom.stage}/auth0-client-secret~true}
+    AUTH0_DOMAIN: ${ssm:/myfaa-${self:custom.stage}/auth0-domain}
+    SESSION_SECRET: ${ssm:/myfaa-${self:custom.stage}/session-secret~true}
+
+    # Stripe
+    STRIPE_PUBLISHABLE_KEY: ${ssm:/myfaa-${self:custom.stage}/stripe-publishable-key}
+    STRIPE_SECRET_KEY: ${ssm:/myfaa-${self:custom.stage}/stripe-secret-key~true}
+
+    # Apollo Studio
+    APOLLO_KEY: ${ssm:/myfaa-${self:custom.stage}/apollo-studio-key~true}
 functions:
   api:
     handler: lambda.handler
