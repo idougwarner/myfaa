@@ -1,10 +1,8 @@
 export default {
+  User: {
+    company: (user, _, { loaders }) => loaders.company.load(user.companyId)
+  },
   Query: {
-    currentUser: () => ({
-      id: 1,
-      firstName: 'John',
-      lastName: 'Smith',
-      email: 'johnsmith@gmail.com'
-    })
+    currentUser: (parent, args, { user }) => user
   }
 };

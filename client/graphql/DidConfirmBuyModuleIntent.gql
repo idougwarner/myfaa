@@ -1,0 +1,3 @@
+mutation DidConfirmBuyModuleIntent($paymentIntentId: String!) {
+  didConfirmBuyModuleIntent(paymentIntentId: $paymentIntentId)
+}

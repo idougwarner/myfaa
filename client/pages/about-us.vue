@@ -1,7 +1,7 @@
 <template>
-  <div class="column items-center justify-center window-height">
-    <div class="text-h2">Founder Bio</div>
-    <div>
+  <div class="window-height myfaa-page-content">
+    <div class="text-h3 q-py-md">Founder Bio</div>
+    <div class="q-mt-md text-body">
       Mr. Sam Collins has worked in aerospace for the last 20 years which
       includes for companies such as Cessna Aircraft Company, Cirrus, Chromalloy
       in addition to other aerospace companies and what he found was

@@ -1,0 +1,11 @@
+mutation CreateBuyModuleIntent(
+  $moduleId: ID!
+  $moduleCount: Int!
+  $couponId: ID
+) {
+  createBuyModuleIntent(
+    moduleId: $moduleId
+    moduleCount: $moduleCount
+    couponId: $couponId
+  )
+}

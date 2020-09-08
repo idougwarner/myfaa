@@ -22,6 +22,27 @@ class Company extends BaseModel {
           from: `${Table.COMPANY}.id`,
           join: `${Table.USER}.companyId`
         }
+      },
+      modules: {
+        relation: Model.ManyToManyRelation,
+        modelClass: path.join(__dirname, 'module'),
+        join: {
+          from: `${Table.COMPANY}.id`,
+          through: {
+            from: `${Table.COMPANY_MODULE}.companyId`,
+            to: `${Table.COMPANY_MODULE}.moduleId`,
+            extra: ['moduleCount']
+          },
+          to: `${Table.MODULE}.id`
+        }
+      },
+      transactions: {
+        relation: Model.HasManyRelation,
+        model: path.join(__dirname, 'transaction'),
+        join: {
+          from: `${Table.COMPANY}.id`,
+          to: `${Table.TRANSACTION}.companyId`
+        }
       }
     };
   }

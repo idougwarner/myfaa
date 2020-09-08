@@ -1,3 +1,5 @@
+import ONBOARDING_STEPS from '@server/constants/onboarding-steps';
+
 const routes = [
   {
     path: '/',
@@ -14,11 +16,6 @@ const routes = [
         component: () => import('@client/pages/modules')
       },
       {
-        name: 'order',
-        path: 'order',
-        component: () => import('@client/pages/order')
-      },
-      {
         name: 'aboutus',
         path: 'aboutus',
         component: () => import('@client/pages/about-us')
@@ -29,6 +26,16 @@ const routes = [
         component: () => import('@client/pages/contact')
       }
     ]
+  },
+  {
+    name: ONBOARDING_STEPS.SETUP_COMPANY,
+    path: `/${ONBOARDING_STEPS.SETUP_COMPANY}`,
+    component: () => import('@client/pages/setup-company')
+  },
+  {
+    name: ONBOARDING_STEPS.BUY_MODULE,
+    path: `/${ONBOARDING_STEPS.BUY_MODULE}`,
+    component: () => import('@client/pages/buy-module')
   }
 ];
 

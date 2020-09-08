@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="q-mt-xl">
-          <div class="text-h6 what-offer">
+          <div class="text-h6 text-grey">
             We offer training that exceeds the requirements of<br />
             manufacturers, air carriers and repair stations in<br />
             accordance with 14 CFR Parts 21, 121, 135 & 145

@@ -1,0 +1,23 @@
+type Company {
+  id: ID!
+  name: String
+  street: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+  maxEmployeeCount: Int
+}
+
+input CreateCompanyInput {
+  name: String
+  street: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+}
+
+type Mutation {
+  createCompany(input: CreateCompanyInput): Void @hasRole(role: ADMIN)
+}

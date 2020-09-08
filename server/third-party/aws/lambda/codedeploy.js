@@ -1,4 +1,5 @@
 import aws from 'aws-sdk';
+import db from '@server/db';
 
 const codedeploy = new aws.CodeDeploy({ apiVersion: '2014-10-06' });
 
@@ -23,5 +24,7 @@ function makeCodeDeployHandler(name, handlerFn) {
   };
 }
 
-module.exports.preflight = makeCodeDeployHandler('preflight', () => {});
+module.exports.preflight = makeCodeDeployHandler('preflight', () => {
+  db.knex.migrate.latest();
+});
 module.exports.postflight = makeCodeDeployHandler('postflight', () => {});

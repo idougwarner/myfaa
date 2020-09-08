@@ -4,6 +4,7 @@
       <q-page>
         <top-nav :sticky="stickyHeaderVisible" />
         <router-view />
+        <footer-nav />
       </q-page>
     </q-page-container>
   </q-layout>
@@ -11,11 +12,13 @@
 
 <script>
 import TopNav from '@client/components/top-nav';
+import FooterNav from '@client/components/footer-nav';
 
 export default {
   name: 'HomeLayout',
   components: {
-    TopNav
+    TopNav,
+    FooterNav
   },
   data() {
     return {

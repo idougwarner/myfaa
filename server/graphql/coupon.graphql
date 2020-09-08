@@ -1,0 +1,10 @@
+type Coupon {
+  id: ID!
+  code: String!
+  discountPercent: Int
+  discountAmount: Int
+}
+
+type Query {
+  couponByCode(code: String!): Coupon @hasRole(role: ADMIN)
+}

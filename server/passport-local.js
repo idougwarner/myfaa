@@ -1,6 +1,8 @@
+import values from 'lodash/values';
 import capitalizeString from 'lodash/capitalize';
 import AuthHasher from 'passport-local-authenticate';
-import { User, Role } from '@server/models';
+import { User } from '@server/models';
+import { ROLE_NAMES } from '@server/constants';
 
 const errorMessages = {
   invalidCredentials: 'Invalid username or password',
@@ -54,28 +56,18 @@ const signup = ({ lowerCaseEmail, password, existingUser, reqBody }) => {
       // .salt and .hash
       const passwordToSave = `localauth|${hashed.salt}|${hashed.hash}`;
 
-      const role = await Role.query().where('name', reqBody.roleName).first();
-      if (!role) {
+      if (!values(ROLE_NAMES).includes(reqBody.roleName)) {
         reject(new Error(errorMessages.invalidRole));
       } else {
         const user = await User.query()
-          .insertGraphAndFetch(
-            [
-              {
-                email: lowerCaseEmail,
-                auth0Id: passwordToSave,
-                firstName: capitalizeString(reqBody.firstName),
-                lastName: capitalizeString(reqBody.lastName),
-                role: {
-                  id: role.id
-                }
-              }
-            ],
-            {
-              relate: true
-            }
-          )
-          .first();
+          .insert({
+            email: lowerCaseEmail,
+            auth0Id: passwordToSave,
+            firstName: capitalizeString(reqBody.firstName),
+            lastName: capitalizeString(reqBody.lastName),
+            roleName: reqBody.roleName
+          })
+          .returning('*');
 
         resolve(user);
       }

@@ -6,6 +6,7 @@ import passport from 'passport';
 import { ApolloServer } from 'apollo-server-express';
 
 import renderIndex from '@server/middleware/render-index';
+import userOnboardingStatusMiddleware from '@server/middleware/user-onboarding-status';
 import passportSetup from '@server/passport';
 import { createLoaders } from '@server/data-loaders';
 import { schema } from '@server/graphql';
@@ -19,6 +20,7 @@ const DEBUG = config.NODE_ENV !== 'production';
 const app = express();
 
 if (!DEBUG) {
+  app.set('trust proxy', 1);
   app.use(awsServerlessExpressMiddleware.eventContext());
 }
 
@@ -55,6 +57,7 @@ const loginCallbacks = passportSetup[
 ](app);
 
 if (loginCallbacks) {
+  app.get('/login-callback', ...loginCallbacks.loginCallback);
   app.post('/login-callback', ...loginCallbacks.loginCallback);
 }
 
@@ -73,6 +76,8 @@ const server = new ApolloServer({
     reportSchema: true
   }
 });
+
+app.use(userOnboardingStatusMiddleware);
 
 server.applyMiddleware({
   app,

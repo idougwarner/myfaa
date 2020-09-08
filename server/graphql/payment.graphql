@@ -1,0 +1,4 @@
+type Mutation {
+  createBuyModuleIntent(moduleId: ID!, moduleCount: Int!, couponId: ID): String!
+  didConfirmBuyModuleIntent(paymentIntentId: String!): Void
+}

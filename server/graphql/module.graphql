@@ -1,0 +1,13 @@
+type Module {
+  id: ID!
+  name: String!
+  description: String!
+  logoUrl: String!
+  price: PositiveInt!
+  coursesCount: PositiveInt!
+}
+
+type Query {
+  modulesOverview: [Module!]!
+  onboardingModule: Module
+}
