@@ -1,9 +1,11 @@
 <template>
-  <div>Contact form here</div>
+  <div>Admins</div>
 </template>
 
 <script>
 export default {
-  name: 'Contact'
+  name: 'Admins'
 };
 </script>
+
+<style></style>

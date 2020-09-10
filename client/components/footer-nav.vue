@@ -1,5 +1,5 @@
 <template>
-  <div>Copyright © 2020 SKYE LLC</div>
+  <div class="fixed-bottom">Copyright © 2020 SKYE LLC</div>
 </template>
 
 <script>

@@ -9,10 +9,11 @@
         <router-link :to="{ name: 'home' }">
           <span class="text-h6 cursor-pointer">Home</span>
         </router-link>
-        <span class="text-h6 cursor-pointer" v-if="currentUser">
-          Dashboard
-          <q-menu> </q-menu>
-        </span>
+        <router-link :to="{ name: 'roster' }">
+          <span class="text-h6 cursor-pointer" v-if="currentUser">
+            Dashboard
+          </span>
+        </router-link>
         <router-link :to="{ name: 'modules' }">
           <span class="text-h6 cursor-pointer">E-Learning</span>
         </router-link>
