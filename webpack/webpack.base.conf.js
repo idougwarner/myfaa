@@ -43,6 +43,11 @@ module.exports = {
             img: 'src',
             image: ['xlink:href', 'href'],
             use: ['xlink:href', 'href']
+          },
+          transpileOptions: {
+            transforms: {
+              dangerousTaggedTemplateString: true
+            }
           }
         }
       },
