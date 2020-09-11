@@ -1,0 +1,26 @@
+type Department {
+  id: ID!
+  company: Company
+  name: String!
+  courses: [Course!]!
+}
+
+type Query {
+  departments: [Department!]!
+}
+
+type Mutation {
+  createDepartment(name: String!): Department
+    @hasRole(role: ADMIN)
+  assignCourse(departmentId: ID!, courseId: ID!): Department
+    @hasRole(role: ADMIN)
+    @presentResource(
+      items: [{
+        name: "department",
+        key: "departmentId"
+      }, {
+        name: "course",
+        key: "courseId"
+      }]
+    )
+}
