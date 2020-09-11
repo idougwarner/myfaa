@@ -7,7 +7,6 @@ type Company {
   zipcode: String
   country: String
   maxEmployeeCount: Int
-  departments: [Department!]!
   modules: [Module!]!
 }
 

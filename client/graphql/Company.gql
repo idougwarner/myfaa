@@ -1,0 +1,26 @@
+query GetCurrentCompany {
+  currentCompany {
+    id
+    name
+    street
+    city
+    state
+    zipcode
+    country
+    maxEmployeeCount
+    modules {
+      id
+      name
+      description
+      logoUrl
+      price
+      coursesCount
+      courses {
+        id
+        name
+        videoUrl
+        sequence
+      }
+    }
+  }
+}

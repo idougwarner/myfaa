@@ -3,8 +3,6 @@ import { onboardingService } from '@server/services';
 
 export default {
   Company: {
-    departments: (company) =>
-      Company.relatedQuery('departments').for(company.id),
     modules: (company) => Company.relatedQuery('modules').for(company.id)
   },
   Query: {

@@ -12,7 +12,7 @@ type Query {
 type Mutation {
   createDepartment(name: String!): Department
     @hasRole(role: ADMIN)
-  assignCourse(departmentId: ID!, courseId: ID!): Department
+  assignCourse(departmentId: ID!, courseId: ID!, assign: Boolean!): Void
     @hasRole(role: ADMIN)
     @presentResource(
       items: [{

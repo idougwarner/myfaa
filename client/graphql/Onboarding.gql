@@ -1,0 +1,39 @@
+query GetModulesOverview {
+  modulesOverview {
+    id
+    name
+    description
+    logoUrl
+    price
+    coursesCount
+  }
+}
+
+query GetOnboardingModule {
+  onboardingModule {
+    id
+    name
+    logoUrl
+    price
+  }
+}
+
+mutation CreateCompany($input: CreateCompanyInput) {
+  createCompany(input: $input)
+}
+
+mutation CreateBuyModuleIntent(
+  $moduleId: ID!
+  $moduleCount: Int!
+  $couponId: ID
+) {
+  createBuyModuleIntent(
+    moduleId: $moduleId
+    moduleCount: $moduleCount
+    couponId: $couponId
+  )
+}
+
+mutation DidConfirmBuyModuleIntent($paymentIntentId: String!) {
+  didConfirmBuyModuleIntent(paymentIntentId: $paymentIntentId)
+}

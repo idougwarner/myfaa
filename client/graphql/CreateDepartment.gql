@@ -1,6 +1,0 @@
-mutation CreateDepartment($name: String!) {
-  createDepartment(name: $name) {
-    id
-    name
-  }
-}

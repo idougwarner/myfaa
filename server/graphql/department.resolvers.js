@@ -17,10 +17,13 @@ export default {
         .for(user.companyId)
         .insert({ name })
         .returning('*'),
-    assignCourse: (_, { departmentId, courseId }) =>
-      Department.relatedQuery('courses')
-        .for(departmentId)
-        .relate(courseId)
-        .returning('*')
+    assignCourse: async (_, { departmentId, courseId, assign }) => {
+      const queryBuilder = Department.relatedQuery('courses').for(departmentId);
+      if (assign) {
+        await queryBuilder.relate(courseId);
+      } else {
+        await queryBuilder.unrelate().where('courses.id', courseId);
+      }
+    }
   }
 };

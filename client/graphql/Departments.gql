@@ -1,6 +1,0 @@
-query GetDepartments {
-  departments {
-    id
-    name
-  }
-}
