@@ -22,6 +22,18 @@ class Course extends BaseModel {
           from: `${Table.COURSE}.moduleId`,
           to: `${Table.MODULE}.id`
         }
+      },
+      departments: {
+        relation: Model.ManyToManyRelation,
+        modelClass: path.join(__dirname, 'department'),
+        join: {
+          from: `${Table.COURSE}.id`,
+          through: {
+            from: `${Table.NEED_ASSESSMENT}.courseId`,
+            to: `${Table.NEED_ASSESSMENT}.departmentId`
+          },
+          to: `${Table.DEPARTMENT}.id`
+        }
       }
     };
   }

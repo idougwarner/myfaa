@@ -5,3 +5,4 @@ export { default as Course } from './course';
 export { default as OnboardingStatus } from './onboarding-status';
 export { default as Coupon } from './coupon';
 export { default as Transaction } from './transaction';
+export { default as Department } from './department';

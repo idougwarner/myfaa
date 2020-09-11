@@ -36,7 +36,9 @@ export const Table = {
   ONBOARDING_STATUS: camelCaseString('onboarding_statuses'),
   COUPON: camelCaseString('coupons'),
   COMPANY_MODULE: camelCaseString('company_modules'),
-  TRANSACTION: camelCaseString('transactions')
+  TRANSACTION: camelCaseString('transactions'),
+  DEPARTMENT: camelCaseString('departments'),
+  NEED_ASSESSMENT: camelCaseString('assessments')
 };
 
 export const knex = _knex;

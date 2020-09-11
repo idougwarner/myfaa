@@ -1,0 +1,7 @@
+type Course {
+  id: ID!
+  name: String!
+  videoUrl: String
+  sequence: PositiveInt
+  module: Module
+}

@@ -9,7 +9,7 @@ function isLoggedIn({ user }) {
 
 export const directiveTypeDefs = {
   isAuthenticated: 'directive @isAuthenticated on FIELD_DEFINITION',
-  hasRole: 'directive @hasRole(role: Role!) on FIELD_DEFINITION'
+  hasRole: 'directive @hasRole(role: ROLE!) on FIELD_DEFINITION'
 };
 
 export const directiveResolvers = {

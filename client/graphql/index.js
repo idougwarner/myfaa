@@ -5,17 +5,21 @@ import CreateCompany from './CreateCompany.gql';
 import DidConfirmBuyModuleIntent from './DidConfirmBuyModuleIntent.gql';
 import ModulesOverview from './ModulesOverview.gql';
 import OnboardingModule from './OnboardingModule.gql';
+import Departments from './Departments.gql';
+import CreateDepartment from './CreateDepartment.gql';
 
 export default {
   queries: {
     currentUser: CurrentUser,
     couponByCode: CouponByCode,
     modulesOverview: ModulesOverview,
-    onboardingModule: OnboardingModule
+    onboardingModule: OnboardingModule,
+    departments: Departments
   },
   mutations: {
     createBuyModuleIntent: CreateBuyModuleIntent,
     createCompany: CreateCompany,
-    didConfirmBuyModuleIntent: DidConfirmBuyModuleIntent
+    didConfirmBuyModuleIntent: DidConfirmBuyModuleIntent,
+    createDepartment: CreateDepartment
   }
 };

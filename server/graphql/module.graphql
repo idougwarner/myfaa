@@ -5,6 +5,7 @@ type Module {
   logoUrl: String!
   price: PositiveInt!
   coursesCount: PositiveInt!
+  courses: [Course!]!
 }
 
 type Query {
