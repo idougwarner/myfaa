@@ -108,7 +108,7 @@ export default {
     },
     async createDepartment() {
       this.loading = true;
-      this.validate();
+      this.validate(['name']);
       try {
         this.$apollo.mutate({
           mutation: graphql.mutations.createDepartment,
@@ -127,15 +127,6 @@ export default {
         console.error(error);
       }
       this.loading = false;
-    },
-    validate() {
-      if (this.$v.name.$invalid) {
-        this.$v.name.$touch();
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
-        throw new Error('Name field is required');
-      }
     },
     delayTouch
   }

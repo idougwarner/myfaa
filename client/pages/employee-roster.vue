@@ -16,21 +16,26 @@
         </div>
       </template>
     </ApolloQuery>
+    <employee-invite-dialog ref="employeeInviteDialog" />
   </div>
 </template>
 
 <script>
 import { EmployeeTable } from '@client/components/tables';
+import { EmployeeInviteDialog } from '@client/components/dialogs';
 import graphql from '@client/graphql';
 
 export default {
   name: 'EmployeeRoster',
   graphql,
   components: {
-    EmployeeTable
+    EmployeeTable,
+    EmployeeInviteDialog
   },
   methods: {
-    handleInvite() {}
+    handleInvite() {
+      this.$refs.employeeInviteDialog.open();
+    }
   }
 };
 </script>

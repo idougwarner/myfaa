@@ -107,7 +107,7 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
-      this.validate();
+      this.validate(['name', 'street', 'city', 'state', 'zipcode', 'country']);
       const { name, street, city, state, zipcode, country } = this;
       const campanyInput = { name, street, city, state, zipcode, country };
       try {
@@ -121,25 +121,6 @@ export default {
         this.notifyNegative('Something went wrong. Please try again later');
       }
       this.loading = false;
-    },
-    validate() {
-      let validationFailure = false;
-      const fields = ['name', 'street', 'city', 'state', 'zipcode', 'country'];
-
-      fields.forEach((field) => {
-        if (this.$v[field].$invalid) {
-          this.$v[field].$touch();
-          validationFailure = true;
-        }
-      });
-
-      if (validationFailure) {
-        this.notifyNegative('Form has some invalid fields');
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
-        throw new Error('Invalid form');
-      }
     },
     delayTouch
   }
