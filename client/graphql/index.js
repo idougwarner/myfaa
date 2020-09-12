@@ -12,7 +12,7 @@ import {
   CreateDepartment,
   AssignCourse
 } from './Department.gql';
-import { GetCurrentCompany } from './Company.gql';
+import { GetCurrentCompany, GetCompanyEmployee } from './Company.gql';
 
 export default {
   queries: {
@@ -21,7 +21,8 @@ export default {
     modulesOverview: GetModulesOverview,
     onboardingModule: GetOnboardingModule,
     departments: GetDepartments,
-    currentCompany: GetCurrentCompany
+    currentCompany: GetCurrentCompany,
+    companyEmployees: GetCompanyEmployee
   },
   mutations: {
     createBuyModuleIntent: CreateBuyModuleIntent,

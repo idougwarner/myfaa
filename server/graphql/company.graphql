@@ -8,6 +8,7 @@ type Company {
   country: String
   maxEmployeeCount: Int
   modules: [Module!]!
+  employees: [User]
 }
 
 input CreateCompanyInput {
@@ -21,6 +22,7 @@ input CreateCompanyInput {
 
 type Query {
   currentCompany: Company @isAuthenticated
+  employees: [User] @hasRole(role: ADMIN)
 }
 
 type Mutation {

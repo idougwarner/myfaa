@@ -1,53 +1,51 @@
 <template>
-  <div>
-    <div class="myfaa-page-content">
-      <div class="q-mb-md">
-        <q-input
-          label="Department Name"
-          outlined
-          dense
-          v-model="name"
-          @input="delayTouch($v.name, $options.touchMap)"
-          :error="$v.name.$error"
-        />
-        <q-btn
-          outline
-          color="primary"
-          label="Create"
-          :loading="loading"
-          @click="createDepartment"
-        >
-          <template #loading>
-            <q-spinner-gears />
-          </template>
-        </q-btn>
-      </div>
-      <ApolloQuery :query="$options.graphql.queries.currentCompany">
-        <template #default="{ result: { loading, error, data: companyGraph } }">
-          <div v-if="loading">Loading...</div>
-          <div v-else-if="error">An error occurred</div>
-          <div v-else-if="companyGraph && companyGraph.currentCompany">
-            <ApolloQuery :query="$options.graphql.queries.departments">
-              <template
-                #default="{ result: { loading, error, data: departmentGraph } }"
-              >
-                <div v-if="loading">Loading...</div>
-                <div v-else-if="error">An error occurred</div>
-                <div v-else-if="departmentGraph">
-                  <assessment-table
-                    :departments="departmentGraph.departments"
-                    :modules="companyGraph.currentCompany.modules"
-                    :assignCourse="assignCourse"
-                  />
-                </div>
-                <div v-else>No result :(</div>
-              </template>
-            </ApolloQuery>
-          </div>
-          <div v-else>No result :(</div>
+  <div class="myfaa-page-content">
+    <div class="q-mb-md">
+      <q-input
+        label="Department Name"
+        outlined
+        dense
+        v-model="name"
+        @input="delayTouch($v.name, $options.touchMap)"
+        :error="$v.name.$error"
+      />
+      <q-btn
+        outline
+        color="primary"
+        label="Create"
+        :loading="loading"
+        @click="createDepartment"
+      >
+        <template #loading>
+          <q-spinner-gears />
         </template>
-      </ApolloQuery>
+      </q-btn>
     </div>
+    <ApolloQuery :query="$options.graphql.queries.currentCompany">
+      <template #default="{ result: { loading, error, data: companyGraph } }">
+        <div v-if="loading">Loading...</div>
+        <div v-else-if="error">An error occurred</div>
+        <div v-else-if="companyGraph && companyGraph.currentCompany">
+          <ApolloQuery :query="$options.graphql.queries.departments">
+            <template
+              #default="{ result: { loading, error, data: departmentGraph } }"
+            >
+              <div v-if="loading">Loading...</div>
+              <div v-else-if="error">An error occurred</div>
+              <div v-else-if="departmentGraph">
+                <assessment-table
+                  :departments="departmentGraph.departments"
+                  :modules="companyGraph.currentCompany.modules"
+                  :assignCourse="assignCourse"
+                />
+              </div>
+              <div v-else>No result :(</div>
+            </template>
+          </ApolloQuery>
+        </div>
+        <div v-else>No result :(</div>
+      </template>
+    </ApolloQuery>
   </div>
 </template>
 

@@ -24,3 +24,13 @@ query GetCurrentCompany {
     }
   }
 }
+
+query GetCompanyEmployee {
+  employees {
+    id
+    firstName
+    lastName
+    email
+    phoneNumber
+  }
+}
