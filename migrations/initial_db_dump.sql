@@ -6,6 +6,47 @@
 -- Dumped by pg_dump version 12.1 (Ubuntu 12.1-1.pgdg19.04+1)
 
 --
+-- TOC entry 221 (class 1259 OID 49172)
+-- Name: assessments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.assessments (
+    id integer NOT NULL,
+    department_id integer NOT NULL,
+    course_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.assessments OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 49170)
+-- Name: assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.assessments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.assessments_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3108 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.assessments_id_seq OWNED BY public.assessments.id;
+
+
+--
 -- TOC entry 205 (class 1259 OID 16396)
 -- Name: companies; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -43,7 +84,7 @@ CREATE SEQUENCE public.companies_id_seq
 ALTER TABLE public.companies_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3078 (class 0 OID 0)
+-- TOC entry 3109 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -85,7 +126,7 @@ CREATE SEQUENCE public.company_modules_id_seq
 ALTER TABLE public.company_modules_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3079 (class 0 OID 0)
+-- TOC entry 3110 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: company_modules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -101,11 +142,11 @@ ALTER SEQUENCE public.company_modules_id_seq OWNED BY public.company_modules.id;
 CREATE TABLE public.coupons (
     id integer NOT NULL,
     code character varying NOT NULL,
-    name character varying NOT NULL,
     discount_percent integer,
     discount_amount integer,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    name character varying NOT NULL
 );
 
 
@@ -128,7 +169,7 @@ CREATE SEQUENCE public.coupons_id_seq
 ALTER TABLE public.coupons_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3080 (class 0 OID 0)
+-- TOC entry 3111 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: coupons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -171,12 +212,53 @@ CREATE SEQUENCE public.courses_id_seq
 ALTER TABLE public.courses_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3081 (class 0 OID 0)
+-- TOC entry 3112 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 49155)
+-- Name: departments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.departments (
+    id integer NOT NULL,
+    company_id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.departments OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 49153)
+-- Name: departments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.departments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.departments_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3113 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.departments_id_seq OWNED BY public.departments.id;
 
 
 --
@@ -214,7 +296,7 @@ CREATE SEQUENCE public.modules_id_seq
 ALTER TABLE public.modules_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3082 (class 0 OID 0)
+-- TOC entry 3114 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: modules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -256,7 +338,7 @@ CREATE SEQUENCE public.onboarding_id_seq
 ALTER TABLE public.onboarding_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3083 (class 0 OID 0)
+-- TOC entry 3115 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: onboarding_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -276,9 +358,9 @@ CREATE TABLE public.transactions (
     module_count integer NOT NULL,
     coupon_id integer,
     amount integer NOT NULL,
-    payment_intent_id character varying NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    payment_intent_id character varying NOT NULL
 );
 
 
@@ -301,7 +383,7 @@ CREATE SEQUENCE public.transactions_id_seq
 ALTER TABLE public.transactions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3084 (class 0 OID 0)
+-- TOC entry 3116 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -347,7 +429,7 @@ CREATE SEQUENCE public.user_id_seq
 ALTER TABLE public.user_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3085 (class 0 OID 0)
+-- TOC entry 3117 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -356,7 +438,15 @@ ALTER SEQUENCE public.user_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 2876 (class 2604 OID 16399)
+-- TOC entry 2905 (class 2604 OID 49175)
+-- Name: assessments id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.assessments ALTER COLUMN id SET DEFAULT nextval('public.assessments_id_seq'::regclass);
+
+
+--
+-- TOC entry 2889 (class 2604 OID 16399)
 -- Name: companies id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -364,7 +454,7 @@ ALTER TABLE ONLY public.companies ALTER COLUMN id SET DEFAULT nextval('public.co
 
 
 --
--- TOC entry 2884 (class 2604 OID 40966)
+-- TOC entry 2897 (class 2604 OID 40966)
 -- Name: company_modules id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -372,7 +462,7 @@ ALTER TABLE ONLY public.company_modules ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2886 (class 2604 OID 40988)
+-- TOC entry 2899 (class 2604 OID 40988)
 -- Name: coupons id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -380,7 +470,7 @@ ALTER TABLE ONLY public.coupons ALTER COLUMN id SET DEFAULT nextval('public.coup
 
 
 --
--- TOC entry 2880 (class 2604 OID 24592)
+-- TOC entry 2893 (class 2604 OID 24592)
 -- Name: courses id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -388,7 +478,15 @@ ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.cour
 
 
 --
--- TOC entry 2878 (class 2604 OID 24582)
+-- TOC entry 2903 (class 2604 OID 49158)
+-- Name: departments id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departments ALTER COLUMN id SET DEFAULT nextval('public.departments_id_seq'::regclass);
+
+
+--
+-- TOC entry 2891 (class 2604 OID 24582)
 -- Name: modules id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -396,7 +494,7 @@ ALTER TABLE ONLY public.modules ALTER COLUMN id SET DEFAULT nextval('public.modu
 
 
 --
--- TOC entry 2882 (class 2604 OID 32774)
+-- TOC entry 2895 (class 2604 OID 32774)
 -- Name: onboarding_statuses id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -404,7 +502,7 @@ ALTER TABLE ONLY public.onboarding_statuses ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2888 (class 2604 OID 41002)
+-- TOC entry 2901 (class 2604 OID 41002)
 -- Name: transactions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -412,7 +510,7 @@ ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2873 (class 2604 OID 16390)
+-- TOC entry 2886 (class 2604 OID 16390)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -420,7 +518,16 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.user_i
 
 
 --
--- TOC entry 3086 (class 0 OID 0)
+-- TOC entry 3118 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: assessments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.assessments_id_seq', 14, true);
+
+
+--
+-- TOC entry 3119 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: companies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -429,16 +536,16 @@ SELECT pg_catalog.setval('public.companies_id_seq', 3, true);
 
 
 --
--- TOC entry 3087 (class 0 OID 0)
+-- TOC entry 3120 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: company_modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.company_modules_id_seq', 4, true);
+SELECT pg_catalog.setval('public.company_modules_id_seq', 6, true);
 
 
 --
--- TOC entry 3088 (class 0 OID 0)
+-- TOC entry 3121 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: coupons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -447,16 +554,25 @@ SELECT pg_catalog.setval('public.coupons_id_seq', 1, true);
 
 
 --
--- TOC entry 3089 (class 0 OID 0)
+-- TOC entry 3122 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.courses_id_seq', 7, true);
+SELECT pg_catalog.setval('public.courses_id_seq', 13, true);
 
 
 --
--- TOC entry 3090 (class 0 OID 0)
+-- TOC entry 3123 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.departments_id_seq', 8, true);
+
+
+--
+-- TOC entry 3124 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -465,7 +581,7 @@ SELECT pg_catalog.setval('public.modules_id_seq', 2, true);
 
 
 --
--- TOC entry 3091 (class 0 OID 0)
+-- TOC entry 3125 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: onboarding_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -474,16 +590,16 @@ SELECT pg_catalog.setval('public.onboarding_id_seq', 3, true);
 
 
 --
--- TOC entry 3092 (class 0 OID 0)
+-- TOC entry 3126 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transactions_id_seq', 3, true);
+SELECT pg_catalog.setval('public.transactions_id_seq', 4, true);
 
 
 --
--- TOC entry 3093 (class 0 OID 0)
+-- TOC entry 3127 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -492,7 +608,25 @@ SELECT pg_catalog.setval('public.user_id_seq', 9, true);
 
 
 --
--- TOC entry 2895 (class 2606 OID 16408)
+-- TOC entry 2942 (class 2606 OID 49178)
+-- Name: assessments assessments_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.assessments
+    ADD CONSTRAINT assessments_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2944 (class 2606 OID 49180)
+-- Name: assessments assessments_un; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.assessments
+    ADD CONSTRAINT assessments_un UNIQUE (department_id, course_id);
+
+
+--
+-- TOC entry 2912 (class 2606 OID 16408)
 -- Name: companies companies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -501,7 +635,7 @@ ALTER TABLE ONLY public.companies
 
 
 --
--- TOC entry 2909 (class 2606 OID 40969)
+-- TOC entry 2926 (class 2606 OID 40969)
 -- Name: company_modules company_modules_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -510,7 +644,7 @@ ALTER TABLE ONLY public.company_modules
 
 
 --
--- TOC entry 2911 (class 2606 OID 40982)
+-- TOC entry 2928 (class 2606 OID 40982)
 -- Name: company_modules company_modules_un; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -519,7 +653,7 @@ ALTER TABLE ONLY public.company_modules
 
 
 --
--- TOC entry 2913 (class 2606 OID 40994)
+-- TOC entry 2930 (class 2606 OID 40994)
 -- Name: coupons coupons_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -528,7 +662,7 @@ ALTER TABLE ONLY public.coupons
 
 
 --
--- TOC entry 2915 (class 2606 OID 40996)
+-- TOC entry 2932 (class 2606 OID 40996)
 -- Name: coupons coupons_uk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -537,7 +671,7 @@ ALTER TABLE ONLY public.coupons
 
 
 --
--- TOC entry 2917 (class 2606 OID 41024)
+-- TOC entry 2934 (class 2606 OID 41024)
 -- Name: coupons coupons_uk1; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -546,7 +680,7 @@ ALTER TABLE ONLY public.coupons
 
 
 --
--- TOC entry 2901 (class 2606 OID 24599)
+-- TOC entry 2918 (class 2606 OID 24599)
 -- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -555,7 +689,7 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- TOC entry 2903 (class 2606 OID 24601)
+-- TOC entry 2920 (class 2606 OID 24601)
 -- Name: courses courses_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -564,7 +698,16 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- TOC entry 2897 (class 2606 OID 24603)
+-- TOC entry 2940 (class 2606 OID 49164)
+-- Name: departments departments_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2914 (class 2606 OID 24603)
 -- Name: modules modules_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -573,7 +716,7 @@ ALTER TABLE ONLY public.modules
 
 
 --
--- TOC entry 2899 (class 2606 OID 24605)
+-- TOC entry 2916 (class 2606 OID 24605)
 -- Name: modules modules_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -582,7 +725,7 @@ ALTER TABLE ONLY public.modules
 
 
 --
--- TOC entry 2905 (class 2606 OID 32779)
+-- TOC entry 2922 (class 2606 OID 32779)
 -- Name: onboarding_statuses onboarding_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -591,7 +734,7 @@ ALTER TABLE ONLY public.onboarding_statuses
 
 
 --
--- TOC entry 2907 (class 2606 OID 32781)
+-- TOC entry 2924 (class 2606 OID 32781)
 -- Name: onboarding_statuses onboarding_uk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -600,7 +743,7 @@ ALTER TABLE ONLY public.onboarding_statuses
 
 
 --
--- TOC entry 2919 (class 2606 OID 41005)
+-- TOC entry 2936 (class 2606 OID 41005)
 -- Name: transactions transactions_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -609,7 +752,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 2921 (class 2606 OID 41007)
+-- TOC entry 2938 (class 2606 OID 41007)
 -- Name: transactions transactions_uk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -618,7 +761,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 2891 (class 2606 OID 16404)
+-- TOC entry 2908 (class 2606 OID 16404)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -627,7 +770,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2893 (class 2606 OID 16406)
+-- TOC entry 2910 (class 2606 OID 16406)
 -- Name: users users_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -636,7 +779,25 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2925 (class 2606 OID 40970)
+-- TOC entry 2954 (class 2606 OID 49181)
+-- Name: assessments assessments_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.assessments
+    ADD CONSTRAINT assessments_fk FOREIGN KEY (department_id) REFERENCES public.departments(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2955 (class 2606 OID 49186)
+-- Name: assessments assessments_fk_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.assessments
+    ADD CONSTRAINT assessments_fk_1 FOREIGN KEY (course_id) REFERENCES public.courses(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2948 (class 2606 OID 40970)
 -- Name: company_modules company_modules_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -645,7 +806,7 @@ ALTER TABLE ONLY public.company_modules
 
 
 --
--- TOC entry 2926 (class 2606 OID 40975)
+-- TOC entry 2949 (class 2606 OID 40975)
 -- Name: company_modules company_modules_fk_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -654,7 +815,7 @@ ALTER TABLE ONLY public.company_modules
 
 
 --
--- TOC entry 2923 (class 2606 OID 24606)
+-- TOC entry 2946 (class 2606 OID 24606)
 -- Name: courses courses_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -663,7 +824,16 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- TOC entry 2924 (class 2606 OID 32782)
+-- TOC entry 2953 (class 2606 OID 49165)
+-- Name: departments departments_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_fk FOREIGN KEY (company_id) REFERENCES public.companies(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2947 (class 2606 OID 32782)
 -- Name: onboarding_statuses onboarding_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -672,7 +842,7 @@ ALTER TABLE ONLY public.onboarding_statuses
 
 
 --
--- TOC entry 2927 (class 2606 OID 41008)
+-- TOC entry 2950 (class 2606 OID 41008)
 -- Name: transactions transactions_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -681,7 +851,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 2928 (class 2606 OID 41013)
+-- TOC entry 2951 (class 2606 OID 41013)
 -- Name: transactions transactions_fk_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -690,7 +860,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 2929 (class 2606 OID 41018)
+-- TOC entry 2952 (class 2606 OID 41018)
 -- Name: transactions transactions_fk_2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -699,7 +869,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 2922 (class 2606 OID 16409)
+-- TOC entry 2945 (class 2606 OID 16409)
 -- Name: users users_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -707,7 +877,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_fk FOREIGN KEY (company_id) REFERENCES public.companies(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
--- Completed on 2020-09-07 21:21:51 EDT
+-- Completed on 2020-09-14 04:55:44 EDT
 
 --
 -- PostgreSQL database dump complete
