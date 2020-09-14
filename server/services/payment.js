@@ -1,13 +1,12 @@
 import { ApolloError } from 'apollo-server';
 import { Module, Transaction } from '@server/models';
 import { stripe } from '@server/third-party';
-import { ONBOARDING_STEPS } from '@server/constants';
 import { NotFoundError } from '@server/graphql/__customErrors';
-import * as onboardingService from './onboarding';
 import * as couponService from './coupon';
 import * as companyService from './company';
 
 export const createBuyModuleIntent = async (
+  companyId,
   moduleId,
   moduleCount,
   couponId
@@ -24,13 +23,13 @@ export const createBuyModuleIntent = async (
   const paymentIntent = await stripe.instance.paymentIntents.create({
     amount: grandTotal * 100,
     currency: 'usd',
-    metadata: { moduleId, moduleCount, couponId }
+    metadata: { companyId, moduleId, moduleCount, couponId }
   });
 
   return paymentIntent;
 };
 
-export const didConfirmBuyModuleIntent = async (user, paymentIntentId) => {
+export const didConfirmBuyModuleIntent = async (paymentIntentId) => {
   let paymentIntent;
 
   try {
@@ -45,20 +44,16 @@ export const didConfirmBuyModuleIntent = async (user, paymentIntentId) => {
     throw new ApolloError('Payment intent not charged');
   }
 
-  const { moduleId, moduleCount, couponId } = paymentIntent.metadata;
+  const { companyId, moduleId, moduleCount, couponId } = paymentIntent.metadata;
 
   await companyService.addModules(
-    user.companyId,
+    companyId,
     moduleId,
     parseInt(moduleCount, 10)
   );
 
-  if (user.onboardingStatus.lastStep === ONBOARDING_STEPS.SETUP_COMPANY) {
-    onboardingService.completeOnboarding(user.id);
-  }
-
   const transaction = {
-    companyId: user.companyId,
+    companyId: parseInt(companyId, 10),
     moduleId: parseInt(moduleId, 10),
     moduleCount: parseInt(moduleCount, 10),
     amount: paymentIntent.amount_received,

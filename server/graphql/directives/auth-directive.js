@@ -20,10 +20,22 @@ export const directiveResolvers = {
   hasRole: (next, source, { role: requiredRoleName }, ctx) => {
     const user = isLoggedIn(ctx);
 
-    if (isEqualOrHigherRole(user.roleName, requiredRoleName)) {
-      return next();
-    }
+    if (!ctx.companyId) {
+      if (
+        isEqualOrHigherRole(user.onboardingStatus.roleName, requiredRoleName)
+      ) {
+        return next();
+      }
 
-    throw new InsufficientPermissionError('Insufficient role');
+      throw new InsufficientPermissionError('Insufficient role');
+    } else {
+      const company = user.companies.find((c) => c.id === ctx.companyId);
+
+      if (company && isEqualOrHigherRole(company.roleName, requiredRoleName)) {
+        return next();
+      }
+
+      throw new InsufficientPermissionError('Insufficient role');
+    }
   }
 };

@@ -67,10 +67,29 @@ if (loginCallbacks) {
 const server = new ApolloServer({
   schema,
   debug: DEBUG,
-  context: ({ req }) => ({
-    loaders: createLoaders(),
-    user: req.user
-  }),
+  context: ({ req, res }) => {
+    const { user, headers } = req;
+    let companyId = parseInt(headers.companyid, 10);
+
+    if (user && user.companies && user.companies.length > 0) {
+      const company = user.companies.find((c) => c.id === companyId);
+      if (company) {
+        res.setHeader('companyid', company.id);
+      } else {
+        companyId = user.companies[0].id;
+        res.setHeader('companyid', user.companies[0].id);
+      }
+    } else {
+      companyId = null;
+    }
+
+    return {
+      loaders: createLoaders(),
+      user,
+      companyId,
+      setCompanyId: (id) => res.setHeader('companyid', id)
+    };
+  },
   formatError: (error) => error,
   engine: {
     reportSchema: true

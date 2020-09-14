@@ -8,13 +8,13 @@ export default {
       Department.relatedQuery('courses').for(department.id)
   },
   Query: {
-    departments: (parent, args, { user }) =>
-      Company.relatedQuery('departments').for(user.companyId)
+    departments: (parent, args, { companyId }) =>
+      Company.relatedQuery('departments').for(companyId)
   },
   Mutation: {
-    createDepartment: (_, { name }, { user }) =>
+    createDepartment: (_, { name }, { companyId }) =>
       Company.relatedQuery('departments')
-        .for(user.companyId)
+        .for(companyId)
         .insert({ name })
         .returning('*'),
     assignCourse: async (_, { departmentId, courseId, assign }) => {

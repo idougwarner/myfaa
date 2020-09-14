@@ -8,15 +8,17 @@ export default {
     employees: (company) => Company.relatedQuery('employees').for(company.id)
   },
   Query: {
-    currentCompany: (parent, arg, { user, loaders }) =>
-      loaders.company.load(user.companyId),
-    employees: (parent, arg, { user }) =>
+    currentCompany: (parent, arg, { loaders, companyId }) =>
+      loaders.company.load(companyId),
+    employees: (parent, arg, { companyId }) =>
       Company.relatedQuery('employees')
-        .for(user.companyId)
+        .for(companyId)
         .where('roleName', ROLE_NAMES.EMPLOYEE)
   },
   Mutation: {
-    createCompany: async (_, { input }, { user }) =>
-      onboardingService.createCompany(user, input)
+    createCompany: async (_, { input }, { user, setCompanyId }) => {
+      const companyId = await onboardingService.createCompany(user, input);
+      setCompanyId(companyId);
+    }
   }
 };
