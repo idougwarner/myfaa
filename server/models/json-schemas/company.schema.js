@@ -10,6 +10,5 @@ export default {
     country: { type: 'string' },
     maxEmployeeCount: { type: 'integer' }
   },
-  required: ['name', 'street', 'city', 'state', 'zipcode'],
-  additionalProperties: false
+  required: ['name', 'street', 'city', 'state', 'zipcode']
 };

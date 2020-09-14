@@ -36,7 +36,7 @@ export function setupAuth0Passport() {
       // add new cacheable query
       const user = await User.query()
         .findOne({ auth0Id: id })
-        .withGraphFetched('onboardingStatus');
+        .withGraphFetched('[onboardingStatus, companies]');
       done(null, user || false);
     })
   );
@@ -62,7 +62,8 @@ export function setupAuth0Passport() {
             {};
 
           const onboardingStatus = {
-            lastStep: ONBOARDING_STEPS.CREATE_ACCOUNT
+            lastStep: ONBOARDING_STEPS.CREATE_ACCOUNT,
+            roleName: userMetadata.roleName
           };
 
           if (userMetadata.moduleId) {
@@ -76,7 +77,6 @@ export function setupAuth0Passport() {
             firstName: capitalizeString(userMetadata.firstName) || '',
             lastName: capitalizeString(userMetadata.lastName) || '',
             phoneNumber: userMetadata.phoneNumber || '',
-            roleName: userMetadata.roleName,
             onboardingStatus
           };
 

@@ -1,4 +1,6 @@
 type Mutation {
   createBuyModuleIntent(moduleId: ID!, moduleCount: Int!, couponId: ID): String!
+    @hasRole(role: ADMIN)
   didConfirmBuyModuleIntent(paymentIntentId: String!): Void
+    @hasRole(role: ADMIN)
 }

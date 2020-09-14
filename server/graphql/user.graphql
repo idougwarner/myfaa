@@ -1,13 +1,23 @@
+type MyCompany {
+  id: ID!
+  name: String
+  street: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+  roleName: String
+}
+
 type User {
   id: ID!
   firstName: String!
   lastName: String
   email: EmailAddress!
   phoneNumber: String
-  company: Company
-  roleName: String!
+  companies: [MyCompany]
 }
 
 type Query {
-  currentUser: User
+  currentUser: User @isAuthenticated
 }

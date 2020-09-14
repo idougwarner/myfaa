@@ -15,11 +15,16 @@ class User extends BaseModel {
 
   static get relationMappings() {
     return {
-      company: {
-        relation: Model.BelongsToOneRelation,
+      companies: {
+        relation: Model.ManyToManyRelation,
         modelClass: path.join(__dirname, 'company'),
         join: {
-          from: `${Table.USER}.companyId`,
+          from: `${Table.USER}.id`,
+          through: {
+            from: `${Table.EMPLOYEE}.user_id`,
+            to: `${Table.EMPLOYEE}.company_id`,
+            extra: ['roleName']
+          },
           to: `${Table.COMPANY}.id`
         }
       },

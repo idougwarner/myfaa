@@ -31,6 +31,7 @@ export function queryBuilder(tableName, opts) {
 export const Table = {
   USER: camelCaseString('users'),
   COMPANY: camelCaseString('companies'),
+  EMPLOYEE: camelCaseString('employees'),
   MODULE: camelCaseString('modules'),
   COURSE: camelCaseString('courses'),
   ONBOARDING_STATUS: camelCaseString('onboarding_statuses'),

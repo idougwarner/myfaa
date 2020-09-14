@@ -24,11 +24,16 @@ class Company extends BaseModel {
         }
       },
       employees: {
-        relation: Model.HasManyRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: path.join(__dirname, 'user'),
         join: {
           from: `${Table.COMPANY}.id`,
-          to: `${Table.USER}.companyId`
+          through: {
+            from: `${Table.EMPLOYEE}.company_id`,
+            to: `${Table.EMPLOYEE}.user_id`,
+            extra: ['roleName']
+          },
+          to: `${Table.USER}.id`
         }
       },
       modules: {

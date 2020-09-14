@@ -5,10 +5,10 @@ query CurrentUser {
     lastName
     email
     phoneNumber
-    company {
+    companies {
       id
       name
+      roleName
     }
-    roleName
   }
 }

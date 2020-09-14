@@ -1,6 +1,9 @@
+import { User } from '@server/models';
+
 export default {
   User: {
-    company: (user, _, { loaders }) => loaders.company.load(user.companyId)
+    companies: (parent, args, { user }) =>
+      User.relatedQuery('companies').for(user.id)
   },
   Query: {
     currentUser: (parent, args, { user }) => user
