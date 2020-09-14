@@ -132,6 +132,7 @@
 import flatten from 'lodash/flatten';
 import { required, email } from 'vuelidate/lib/validators';
 import delayTouch from '@client/utils/delayTouch';
+// import { extractKeysIntoObject } from '@client/utils/object-helpers';
 import graphql from '@client/graphql';
 import BaseDialog from './base-dialog';
 
@@ -184,6 +185,16 @@ export default {
     handleInvite() {
       this.loading = true;
       this.validate(['email', 'supervisorEmail', 'title', 'departmentId']);
+      // const data = extractKeysIntoObject(this, [
+      //   'email',
+      //   'supervisorEmail',
+      //   'title',
+      //   'departmentId',
+      //   'safetySensitive',
+      //   'admin',
+      //   'selectedCourses'
+      // ]);
+
       this.loading = false;
     },
     delayTouch,
