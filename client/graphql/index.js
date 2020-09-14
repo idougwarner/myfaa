@@ -1,21 +1,34 @@
 import CurrentUser from './CurrentUser.gql';
-import CouponByCode from './CouponByCode.gql';
-import CreateBuyModuleIntent from './CreateBuyModuleIntent.gql';
-import CreateCompany from './CreateCompany.gql';
-import DidConfirmBuyModuleIntent from './DidConfirmBuyModuleIntent.gql';
-import ModulesOverview from './ModulesOverview.gql';
-import OnboardingModule from './OnboardingModule.gql';
+import { GetCouponByCode } from './Payment.gql';
+import {
+  GetModulesOverview,
+  GetOnboardingModule,
+  CreateCompany,
+  CreateBuyModuleIntent,
+  DidConfirmBuyModuleIntent
+} from './Onboarding.gql';
+import {
+  GetDepartments,
+  CreateDepartment,
+  AssignCourse
+} from './Department.gql';
+import { GetCurrentCompany, GetCompanyEmployee } from './Company.gql';
 
 export default {
   queries: {
     currentUser: CurrentUser,
-    couponByCode: CouponByCode,
-    modulesOverview: ModulesOverview,
-    onboardingModule: OnboardingModule
+    couponByCode: GetCouponByCode,
+    modulesOverview: GetModulesOverview,
+    onboardingModule: GetOnboardingModule,
+    departments: GetDepartments,
+    currentCompany: GetCurrentCompany,
+    companyEmployees: GetCompanyEmployee
   },
   mutations: {
     createBuyModuleIntent: CreateBuyModuleIntent,
     createCompany: CreateCompany,
-    didConfirmBuyModuleIntent: DidConfirmBuyModuleIntent
+    didConfirmBuyModuleIntent: DidConfirmBuyModuleIntent,
+    createDepartment: CreateDepartment,
+    assignCourseToDepartment: AssignCourse
   }
 };

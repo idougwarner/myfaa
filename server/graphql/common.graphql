@@ -9,10 +9,15 @@ type PageInfo {
   total: Int
 }
 
-enum Role {
+enum ROLE {
   OWNER
   ADMIN
   EMPLOYEE
+}
+
+input Resource {
+  name: String!
+  key: String
 }
 
 scalar NonEmptyString

@@ -91,12 +91,22 @@ app.get('/helloworld', (req, res) => {
   });
 });
 
+const checkIfAuthRequired = (path) => {
+  if (['/', '/modules', '/aboutus'].includes(path)) return false;
+  return true;
+};
+
 /**
  * Each requests that are not any GraphQL request and API endpoints, ends up here.
  * It generates a HTML text and send that back to the client so that the client browser
  * can render the HTML.
  */
 app.use(async (req, res, next) => {
+  if (checkIfAuthRequired(req.path) && !req.isAuthenticated()) {
+    res.redirect(302, '/modules');
+    return;
+  }
+
   res.type('html');
 
   try {

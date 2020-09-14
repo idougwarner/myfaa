@@ -15,12 +15,20 @@ class Company extends BaseModel {
 
   static get relationMappings() {
     return {
+      departments: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, 'department'),
+        join: {
+          from: `${Table.COMPANY}.id`,
+          to: `${Table.DEPARTMENT}.companyId`
+        }
+      },
       employees: {
         relation: Model.HasManyRelation,
         modelClass: path.join(__dirname, 'user'),
         join: {
           from: `${Table.COMPANY}.id`,
-          join: `${Table.USER}.companyId`
+          to: `${Table.USER}.companyId`
         }
       },
       modules: {

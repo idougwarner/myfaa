@@ -1,0 +1,24 @@
+query GetDepartments {
+  departments {
+    id
+    name
+    courses {
+      id
+    }
+  }
+}
+
+mutation CreateDepartment($name: String!) {
+  createDepartment(name: $name) {
+    id
+    name
+  }
+}
+
+mutation AssignCourse($departmentId: ID!, $courseId: ID!, $assign: Boolean!) {
+  assignCourse(
+    departmentId: $departmentId
+    courseId: $courseId
+    assign: $assign
+  )
+}

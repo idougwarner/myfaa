@@ -7,6 +7,8 @@ type Company {
   zipcode: String
   country: String
   maxEmployeeCount: Int
+  modules: [Module!]!
+  employees: [User]
 }
 
 input CreateCompanyInput {
@@ -16,6 +18,11 @@ input CreateCompanyInput {
   state: String
   zipcode: String
   country: String
+}
+
+type Query {
+  currentCompany: Company @isAuthenticated
+  employees: [User] @hasRole(role: ADMIN)
 }
 
 type Mutation {

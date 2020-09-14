@@ -3,7 +3,7 @@ import { ROLE_NAMES } from '@server/constants';
 
 export default {
   NonEmptyString: new RegularExpression('NonEmptyString', /^(?!\s*$).+/),
-  Role: {
+  ROLE: {
     OWNER: ROLE_NAMES.OWNER,
     ADMIN: ROLE_NAMES.ADMIN,
     EMPLOYEE: ROLE_NAMES.EMPLOYEE

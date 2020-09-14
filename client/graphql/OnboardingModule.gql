@@ -1,8 +1,0 @@
-query OnboardingModule {
-  onboardingModule {
-    id
-    name
-    logoUrl
-    price
-  }
-}
