@@ -45,21 +45,27 @@ export const didConfirmBuyModuleIntent = async (user, paymentIntentId) => {
     throw new ApolloError('Payment intent not charged');
   }
 
+  const { moduleId, moduleCount, couponId } = paymentIntent.metadata;
+
+  await companyService.addModules(
+    user.companyId,
+    moduleId,
+    parseInt(moduleCount, 10)
+  );
+
   if (user.onboardingStatus.lastStep === ONBOARDING_STEPS.SETUP_COMPANY) {
     onboardingService.completeOnboarding(user.id);
   }
 
-  const moduleId = parseInt(paymentIntent.metadata.moduleId, 10);
-  const moduleCount = parseInt(paymentIntent.metadata.moduleCount, 10);
-  const couponId = parseInt(paymentIntent.metadata.couponId, 10);
-
-  await companyService.addModules(user.companyId, moduleId, moduleCount);
-  await Transaction.query().insert({
+  const transaction = {
     companyId: user.companyId,
-    moduleId,
-    moduleCount,
-    couponId,
+    moduleId: parseInt(moduleId, 10),
+    moduleCount: parseInt(moduleCount, 10),
     amount: paymentIntent.amount_received,
     paymentIntentId: paymentIntent.id
-  });
+  };
+  if (couponId) {
+    transaction.couponId = parseInt(couponId, 10);
+  }
+  await Transaction.query().insert(transaction);
 };
