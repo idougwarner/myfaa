@@ -1,17 +1,20 @@
+fragment Department on Department {
+  id
+  name
+  courses {
+    id
+  }
+}
+
 query GetDepartments {
   departments {
-    id
-    name
-    courses {
-      id
-    }
+    ...Department
   }
 }
 
 mutation CreateDepartment($name: String!) {
   createDepartment(name: $name) {
-    id
-    name
+    ...Department
   }
 }
 

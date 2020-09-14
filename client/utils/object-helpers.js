@@ -12,3 +12,6 @@ export const setNewValue = (data, key, value) => ({
   ...data,
   [key]: value
 });
+
+export const extractKeysIntoObject = (json, keys) =>
+  keys.reduce((m, key) => ({ ...m, [key]: json[key] }), {});

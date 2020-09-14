@@ -142,11 +142,11 @@ ALTER SEQUENCE public.company_modules_id_seq OWNED BY public.company_modules.id;
 CREATE TABLE public.coupons (
     id integer NOT NULL,
     code character varying NOT NULL,
+    name character varying NOT NULL,
     discount_percent integer,
     discount_amount integer,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone,
-    name character varying NOT NULL
+    updated_at timestamp without time zone
 );
 
 
@@ -358,9 +358,9 @@ CREATE TABLE public.transactions (
     module_count integer NOT NULL,
     coupon_id integer,
     amount integer NOT NULL,
+    payment_intent_id character varying NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone,
-    payment_intent_id character varying NOT NULL
+    updated_at timestamp without time zone
 );
 
 
@@ -877,7 +877,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_fk FOREIGN KEY (company_id) REFERENCES public.companies(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
--- Completed on 2020-09-14 04:55:44 EDT
+-- Completed on 2020-09-14 05:15:09 EDT
 
 --
 -- PostgreSQL database dump complete
