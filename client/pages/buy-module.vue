@@ -1,13 +1,7 @@
 <template>
   <div class="window-height myfaa-page-content">
     {{ onboardingModule ? onboardingModule.name : '' }}
-    <q-input
-      outlined
-      dense
-      v-model="couponCode"
-      @input="handleChangeCoupon"
-      debounce="250"
-    />
+    <q-input outlined dense v-model="couponCode" debounce="250" />
     <q-input outlined dense v-model.number="moduleCount" type="number" />
     <stripe-card
       :create-intent-secret="handleCreateBuyModuleIntentSecret"
@@ -49,7 +43,6 @@ export default {
     }
   },
   methods: {
-    handleChangeCoupon() {},
     async handleCreateBuyModuleIntentSecret() {
       const response = await this.$apollo.mutate({
         mutation: graphql.mutations.createBuyModuleIntent,

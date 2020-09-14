@@ -1,16 +1,19 @@
 import { Company } from '@server/models';
 
 export const addModules = async (companyId, moduleId, moduleCount) => {
-  const queryBuilder = Company.relatedQuery('modules').for(companyId);
-  const companyModule = await queryBuilder.where('moduleId', moduleId).first();
+  const companyModule = await Company.relatedQuery('modules')
+    .for(companyId)
+    .where('moduleId', moduleId)
+    .first();
 
   if (!companyModule) {
-    queryBuilder.relate({
+    await Company.relatedQuery('modules').for(companyId).relate({
       id: moduleId,
       moduleCount
     });
   } else {
-    await queryBuilder
+    await Company.relatedQuery('modules')
+      .for(companyId)
       .patch({
         moduleCount: companyModule.moduleCount + moduleCount
       })
