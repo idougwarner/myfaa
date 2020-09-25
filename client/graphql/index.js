@@ -12,7 +12,11 @@ import {
   CreateDepartment,
   AssignCourse
 } from './Department.gql';
-import { GetCurrentCompany, GetCompanyEmployee } from './Company.gql';
+import {
+  GetCurrentCompany,
+  GetCompanyEmployee,
+  InviteEmployee
+} from './Company.gql';
 
 export default {
   queries: {
@@ -29,6 +33,7 @@ export default {
     createCompany: CreateCompany,
     didConfirmBuyModuleIntent: DidConfirmBuyModuleIntent,
     createDepartment: CreateDepartment,
-    assignCourseToDepartment: AssignCourse
+    assignCourseToDepartment: AssignCourse,
+    inviteEmployee: InviteEmployee
   }
 };

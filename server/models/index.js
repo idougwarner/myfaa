@@ -1,6 +1,7 @@
 export { default as User } from './user';
 export { default as Company } from './company';
 export { default as Employee } from './employee';
+export { default as Invitation } from './invitation';
 export { default as Module } from './module';
 export { default as Course } from './course';
 export { default as OnboardingStatus } from './onboarding-status';

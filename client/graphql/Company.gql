@@ -34,3 +34,7 @@ query GetCompanyEmployee {
     phoneNumber
   }
 }
+
+mutation InviteEmployee($input: InviteEmployeeInput) {
+  inviteEmployee(input: $input)
+}

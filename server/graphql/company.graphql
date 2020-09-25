@@ -21,12 +21,11 @@ input CreateCompanyInput {
 }
 
 type Query {
-  currentCompany: Company
-    @isAuthenticated
-  employees: [User]
-    @hasRole(role: ADMIN)
+  currentCompany: Company @isAuthenticated
+  employees: [User] @hasRole(role: ADMIN)
 }
 
 type Mutation {
   createCompany(input: CreateCompanyInput): Void @hasRole(role: ADMIN)
+  inviteEmployee(input: InviteEmployeeInput): Void @hasRole(role: ADMIN)
 }

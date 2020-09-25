@@ -1,1 +1,2 @@
-export * as stripe from './stripe';
+export * as Stripe from './stripe';
+export * as AWS from './aws';

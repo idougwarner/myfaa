@@ -32,6 +32,7 @@ export const Table = {
   USER: camelCaseString('users'),
   COMPANY: camelCaseString('companies'),
   EMPLOYEE: camelCaseString('employees'),
+  INVITATION: camelCaseString('invitations'),
   MODULE: camelCaseString('modules'),
   COURSE: camelCaseString('courses'),
   ONBOARDING_STATUS: camelCaseString('onboarding_statuses'),

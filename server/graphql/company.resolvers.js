@@ -1,5 +1,5 @@
 import { Company } from '@server/models';
-import { onboardingService } from '@server/services';
+import { onboardingService, companyService } from '@server/services';
 import { ROLE_NAMES } from '@server/constants';
 
 export default {
@@ -19,6 +19,8 @@ export default {
     createCompany: async (_, { input }, { user, setCompanyId }) => {
       const companyId = await onboardingService.createCompany(user, input);
       setCompanyId(companyId);
-    }
+    },
+    inviteEmployee: (_, { input }, { companyId }) =>
+      companyService.inviteEmployee(companyId, input)
   }
 };

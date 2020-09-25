@@ -75,6 +75,7 @@ provider:
   environment:
     NODE_ENV: production
     BASE_URL: ${self:custom.baseUrl.${self:custom.stage}}
+
     # Bundle
     ASSET_DOMAIN: https://s3.amazonaws.com/${self:custom.deploy.bucket_name}/${self:custom.stage}
     ASSETS_DIR: ./build/client/assets

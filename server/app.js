@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     name: 'session',
-    keys: [config.SESSION_SECRET],
+    keys: [config.sessionSecret],
     httpOnly: true,
     secure: !DEBUG,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week

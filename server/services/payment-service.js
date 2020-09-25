@@ -1,9 +1,9 @@
 import { ApolloError } from 'apollo-server';
 import { Module, Transaction } from '@server/models';
-import { stripe } from '@server/third-party';
+import { Stripe } from '@server/third-party';
 import { NotFoundError } from '@server/graphql/__customErrors';
-import * as couponService from './coupon';
-import * as companyService from './company';
+import * as couponService from './coupon-service';
+import * as companyService from './company-service';
 
 export const createBuyModuleIntent = async (
   companyId,
@@ -20,7 +20,7 @@ export const createBuyModuleIntent = async (
   const subTotal = module.price * moduleCount;
   const grandTotal = await couponService.applyCoupon(subTotal, couponId);
 
-  const paymentIntent = await stripe.instance.paymentIntents.create({
+  const paymentIntent = await Stripe.instance.paymentIntents.create({
     amount: grandTotal * 100,
     currency: 'usd',
     metadata: { companyId, moduleId, moduleCount, couponId }
@@ -33,7 +33,7 @@ export const didConfirmBuyModuleIntent = async (paymentIntentId) => {
   let paymentIntent;
 
   try {
-    paymentIntent = await stripe.instance.paymentIntents.retrieve(
+    paymentIntent = await Stripe.instance.paymentIntents.retrieve(
       paymentIntentId
     );
   } catch (e) {

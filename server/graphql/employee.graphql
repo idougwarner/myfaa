@@ -1,0 +1,13 @@
+type Employee {
+  id: ID!
+}
+
+input InviteEmployeeInput {
+  email: String!
+  supervisorEmail: String
+  title: String
+  departmentId: PositiveInt
+  safetySensitive: Boolean
+  admin: Boolean
+  selectedCourses: [ID]
+}

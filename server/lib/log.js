@@ -3,7 +3,7 @@ import config from '@server/config';
 
 const logConfig = {
   base: null,
-  level: config.LOG_LEVEL
+  level: config.logLevel
 };
 
 if (config.NODE_ENV !== 'production') {

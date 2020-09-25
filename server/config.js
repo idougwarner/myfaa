@@ -1,7 +1,16 @@
 export default {
   NODE_ENV: process.env.NODE_ENV,
-  SESSION_SECRET: process.env.SESSION_SECRET || global.SESSION_SECRET,
-  LOG_LEVEL: process.env.LOG_LEVEL || 'info',
-  STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
-  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
+  baseUrl: process.env.BASE_URL,
+  sessionSecret: process.env.SESSION_SECRET || global.SESSION_SECRET,
+  logLevel: process.env.LOG_LEVEL || 'info',
+  stripe: {
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    secretKey: process.env.STRIPE_SECRET_KEY
+  },
+  aws: {
+    sesRegion: process.env.AWS_SES_REGION
+  },
+  emailTemplates: {
+    invitation: process.env.AWS_SES_TEMPLATE_INVITATION
+  }
 };
